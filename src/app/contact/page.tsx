@@ -4,8 +4,8 @@ export default function Contact() {
       <h1>Contact</h1>
 
       <p>
-        I&apos;m always happy to connect with fellow developers, discuss ideas, or
-        explore collaboration opportunities.
+        I&apos;m always happy to connect with fellow developers, discuss ideas,
+        or explore collaboration opportunities.
       </p>
 
       <h2>Get in touch</h2>
@@ -15,7 +15,7 @@ export default function Contact() {
       <ul className="space-y-3 list-none pl-0">
         <li>
           <a href="mailto:dtianshan7@gmail.com">dtianshan7@gmail.com</a>
-          <span className="text-neutral-500 ml-2">— For general inquiries</span>
+          <span className="text-neutral-500 ml-2">— For general</span>
         </li>
         <li>
           <a
@@ -25,7 +25,9 @@ export default function Contact() {
           >
             Twitter / X
           </a>
-          <span className="text-neutral-500 ml-2">— For quick conversations</span>
+          <span className="text-neutral-500 ml-2">
+            — For quick conversations
+          </span>
         </li>
         <li>
           <a
@@ -45,7 +47,9 @@ export default function Contact() {
           >
             LinkedIn
           </a>
-          <span className="text-neutral-500 ml-2">— For professional connections</span>
+          <span className="text-neutral-500 ml-2">
+            — For professional connections
+          </span>
         </li>
       </ul>
 
