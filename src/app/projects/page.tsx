@@ -33,30 +33,30 @@ const projects: Project[] = [
 
 export default function Projects() {
   return (
-    <div>
-      <h1 className="text-3xl font-semibold text-neutral-800 mb-8">
+    <div className="font-serif">
+      <h1 className="text-3xl font-normal text-neutral-800 mb-6">
         Projects
       </h1>
 
-      <p className="text-gray-700 mb-12">
+      <p className="text-neutral-800 mb-12">
         A selection of projects I&apos;ve worked on. Some are experiments, others are
         tools I use regularly.
       </p>
 
-      <div className="space-y-12">
+      <div className="space-y-10">
         {projects.map((project) => (
           <article key={project.title} className="group">
-            <h2 className="text-xl font-semibold text-neutral-800">
+            <h2 className="text-xl font-normal text-neutral-800">
               {project.title}
             </h2>
-            <p className="text-gray-700 mt-2">
+            <p className="text-neutral-600 mt-2">
               {project.description}
             </p>
             <div className="flex flex-wrap gap-2 mt-3">
               {project.tech.map((t) => (
                 <span
                   key={t}
-                  className="text-xs px-2 py-1 bg-gray-200 text-gray-700 rounded"
+                  className="text-xs font-sans px-2 py-1 bg-neutral-100 text-neutral-600 rounded"
                 >
                   {t}
                 </span>
@@ -68,7 +68,7 @@ export default function Projects() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-neutral-500 hover:text-neutral-800 transition-colors"
+                  className="text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors"
                 >
                   View project &rarr;
                 </a>
@@ -78,7 +78,7 @@ export default function Projects() {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-neutral-500 hover:text-neutral-800 transition-colors"
+                  className="text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors"
                 >
                   GitHub &rarr;
                 </a>

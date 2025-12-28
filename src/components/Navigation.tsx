@@ -14,13 +14,13 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="mb-16">
+    <nav className="mb-12">
       <div className="flex items-center gap-6">
         {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className={`text-sm transition-colors ${
+            className={`text-sm font-sans tracking-wide transition-colors ${
               pathname === link.href
                 ? "text-neutral-800"
                 : "text-neutral-500 hover:text-neutral-800"

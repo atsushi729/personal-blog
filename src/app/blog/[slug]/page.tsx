@@ -75,13 +75,13 @@ export default async function BlogPost({
 
   if (!post) {
     return (
-      <div>
-        <h1 className="text-3xl font-semibold text-neutral-800 mb-4">
+      <div className="font-serif">
+        <h1 className="text-3xl font-normal text-neutral-800 mb-4">
           Post not found
         </h1>
         <Link
           href="/blog"
-          className="text-neutral-500 hover:text-neutral-800 transition-colors"
+          className="text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors"
         >
           &larr; Back to blog
         </Link>
@@ -90,23 +90,23 @@ export default async function BlogPost({
   }
 
   return (
-    <article>
+    <article className="font-serif">
       <Link
         href="/blog"
-        className="inline-flex items-center gap-1 text-sm text-neutral-500 hover:text-neutral-800 transition-colors mb-8"
+        className="inline-flex items-center gap-1 text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors mb-8"
       >
         &larr; Back to blog
       </Link>
 
       <header className="mb-8">
-        <time className="text-sm text-neutral-500">
+        <time className="text-sm font-sans text-neutral-500">
           {new Date(post.date).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric",
           })}
         </time>
-        <h1 className="text-3xl font-semibold text-neutral-800 mt-2">
+        <h1 className="text-3xl font-normal text-neutral-800 mt-2">
           {post.title}
         </h1>
       </header>

@@ -33,30 +33,30 @@ const posts: BlogPost[] = [
 
 export default function Blog() {
   return (
-    <div>
-      <h1 className="text-3xl font-semibold text-neutral-800 mb-8">
+    <div className="font-serif">
+      <h1 className="text-3xl font-normal text-neutral-800 mb-6">
         Blog
       </h1>
 
-      <p className="text-gray-700 mb-12">
+      <p className="text-neutral-800 mb-12">
         Thoughts on software, technology, and building things.
       </p>
 
-      <div className="space-y-12">
+      <div className="space-y-10">
         {posts.map((post) => (
           <article key={post.slug} className="group">
             <Link href={`/blog/${post.slug}`} className="block">
-              <time className="text-sm text-neutral-500">
+              <time className="text-sm text-neutral-500 font-sans">
                 {new Date(post.date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                 })}
               </time>
-              <h2 className="text-xl font-semibold text-neutral-800 mt-1 group-hover:text-neutral-600 transition-colors">
+              <h2 className="text-xl font-normal text-neutral-800 mt-1 group-hover:text-neutral-600 transition-colors">
                 {post.title}
               </h2>
-              <p className="text-gray-700 mt-2">
+              <p className="text-neutral-600 mt-2">
                 {post.excerpt}
               </p>
             </Link>

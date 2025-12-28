@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <article className="prose">
+    <article className="prose font-serif">
       <h1>Hi, I&apos;m Atsushi Hatakeyama</h1>
 
       <p>
