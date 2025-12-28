@@ -14,12 +14,12 @@ export default function Contact() {
 
       <ul className="space-y-3 list-none pl-0">
         <li>
-          <a href="mailto:hello@example.com">hello@example.com</a>
+          <a href="mailto:dtianshan7@gmail.com">dtianshan7@gmail.com</a>
           <span className="text-neutral-500 ml-2">— For general inquiries</span>
         </li>
         <li>
           <a
-            href="https://twitter.com/username"
+            href="https://x.com/Hatakey2Atsushi"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -29,7 +29,7 @@ export default function Contact() {
         </li>
         <li>
           <a
-            href="https://github.com/username"
+            href="https://github.com/atsushi729"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -39,7 +39,7 @@ export default function Contact() {
         </li>
         <li>
           <a
-            href="https://linkedin.com/in/username"
+            href="https://www.linkedin.com/in/atsushi-hatakeyama/"
             target="_blank"
             rel="noopener noreferrer"
           >
