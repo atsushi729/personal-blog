@@ -8,39 +8,43 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Personal Blog",
+    title: "Portfolio Website",
     description:
-      "This website! A minimalist personal blog built with Next.js and Tailwind CSS. Focused on simplicity and readability.",
+      "My personal portfolio website showcasing my work and experience.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
-    github: "https://github.com/username/blog",
+    link: "https://atsushi-hatakeyama.vercel.app/",
   },
   {
-    title: "Project Alpha",
+    title: "Diff Check AI",
     description:
-      "A full-stack application that solves an interesting problem. Built with modern technologies and best practices.",
-    tech: ["React", "Node.js", "PostgreSQL"],
-    link: "https://project-alpha.example.com",
-    github: "https://github.com/username/project-alpha",
+      "An AI-powered tool for checking and analyzing code differences.",
+    tech: ["Next.js", "AI"],
+    link: "https://diff-check-ai.vercel.app/",
   },
   {
-    title: "CLI Tool",
+    title: "Recall",
     description:
-      "A command-line tool that automates repetitive tasks and improves developer productivity.",
-    tech: ["Rust", "CLI"],
-    github: "https://github.com/username/cli-tool",
+      "A developer tool for improving memory and recall of programming concepts.",
+    tech: ["Next.js", "TypeScript"],
+    link: "https://recall-dev.vercel.app/",
+  },
+  {
+    title: "Algorithm Visualizer",
+    description:
+      "An interactive tool for visualizing various algorithms and data structures.",
+    tech: ["TypeScript", "Visualization"],
+    link: "https://algorithm-visualizer-bqz.pages.dev/",
   },
 ];
 
 export default function Projects() {
   return (
     <div className="font-serif">
-      <h1 className="text-3xl font-normal text-neutral-800 mb-6">
-        Projects
-      </h1>
+      <h1 className="text-3xl font-normal text-neutral-800 mb-6">Projects</h1>
 
       <p className="text-neutral-800 mb-12">
-        A selection of projects I&apos;ve worked on. Some are experiments, others are
-        tools I use regularly.
+        A selection of projects I&apos;ve worked on. Some are experiments,
+        others are tools I use regularly.
       </p>
 
       <div className="space-y-10">
@@ -49,9 +53,7 @@ export default function Projects() {
             <h2 className="text-xl font-normal text-neutral-800">
               {project.title}
             </h2>
-            <p className="text-neutral-600 mt-2">
-              {project.description}
-            </p>
+            <p className="text-neutral-600 mt-2">{project.description}</p>
             <div className="flex flex-wrap gap-2 mt-3">
               {project.tech.map((t) => (
                 <span
