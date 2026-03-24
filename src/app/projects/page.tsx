@@ -70,7 +70,7 @@ export default function Projects() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors"
+                  className="link-underline text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors"
                 >
                   View project &rarr;
                 </a>
@@ -80,7 +80,7 @@ export default function Projects() {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors"
+                  className="link-underline text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors"
                 >
                   GitHub &rarr;
                 </a>

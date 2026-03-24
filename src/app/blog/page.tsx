@@ -21,16 +21,18 @@ export default function Blog() {
           {posts.map((post) => (
             <article key={post.slug} className="group">
               <Link href={`/blog/${post.slug}`} className="block">
-                <time className="text-sm text-neutral-500 font-sans">
-                  {new Date(post.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
-                <h2 className="text-xl font-normal text-neutral-800 mt-1 group-hover:text-neutral-600 transition-colors">
-                  {post.title}
-                </h2>
+                <div className="flex items-baseline justify-between gap-4">
+                  <h2 className="group-link-underline text-xl font-normal text-neutral-800 group-hover:text-neutral-600 transition-colors">
+                    {post.title}
+                  </h2>
+                  <time className="shrink-0 text-sm text-neutral-500 font-sans">
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </time>
+                </div>
                 {post.excerpt && (
                   <p className="text-neutral-600 mt-2">
                     {post.excerpt}

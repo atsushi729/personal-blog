@@ -17,6 +17,52 @@ body {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
+/* Animated underline - left to right */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Animated underline triggered by parent group hover */
+.group-link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.group-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.group:hover .group-link-underline::after {
+  transform: scaleX(1);
+}
+
 /* Prose styles for blog content */
 .prose {
   @apply text-neutral-800;
@@ -47,5 +93,23 @@ body {
 }
 
 .prose a {
-  @apply text-neutral-800 underline decoration-neutral-400 hover:decoration-neutral-800 underline-offset-2;
+  @apply text-neutral-800 no-underline;
+  position: relative;
+}
+
+.prose a::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #a3a3a3;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.prose a:hover::after {
+  background-color: #262626;
 }
