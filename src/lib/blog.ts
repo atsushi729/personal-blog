@@ -35,7 +35,7 @@ export function getAllPosts(): BlogPost[] {
         title: data.title || slug,
         date,
         excerpt: data.excerpt || '',
-        content,
+        content: content.replace(/^#{1,6}\s+.+\n?/, ''),
       };
     });
 
@@ -61,7 +61,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     title: data.title || slug,
     date,
     excerpt: data.excerpt || '',
-    content,
+    content: content.replace(/^#{1,6}\s+.+\n?/, ''),
   };
 }
 

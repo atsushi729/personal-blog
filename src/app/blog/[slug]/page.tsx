@@ -30,6 +30,9 @@ export default async function BlogPost({
       </Link>
 
       <header className="mb-8">
+        <h1 className="text-3xl font-normal text-neutral-800 mb-2">
+          {post.title}
+        </h1>
         <time className="text-sm font-sans text-neutral-500">
           {new Date(post.date).toLocaleDateString("en-US", {
             year: "numeric",
@@ -37,9 +40,6 @@ export default async function BlogPost({
             day: "numeric",
           })}
         </time>
-        <h1 className="text-3xl font-normal text-neutral-800 mt-2">
-          {post.title}
-        </h1>
       </header>
 
       <div className="prose prose-neutral max-w-none">
