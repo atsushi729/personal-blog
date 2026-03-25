@@ -1,3 +1,18 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "Hi, I'm Atsushi Hatakeyama — a software engineer passionate about building functional and elegant software.",
+  openGraph: {
+    title: "About | Atsushi Hatakeyama",
+    description: "Hi, I'm Atsushi Hatakeyama — a software engineer passionate about building functional and elegant software.",
+    url: "/",
+  },
+  alternates: {
+    canonical: "/",
+  },
+};
+
 export default function About() {
   return (
     <article className="prose font-serif">

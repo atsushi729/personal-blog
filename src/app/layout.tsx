@@ -2,9 +2,27 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 
+const siteUrl = "https://atsushi-blog.pages.dev";
+
 export const metadata: Metadata = {
-  title: "Atsushi Hatakeyama",
-  description: "Personal blog and portfolio of Atsushi Hatakeyama",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Atsushi Hatakeyama",
+    template: "%s | Atsushi Hatakeyama",
+  },
+  description: "Personal blog and portfolio of Atsushi Hatakeyama — software engineer writing about code, technology, and ideas.",
+  openGraph: {
+    type: "website",
+    siteName: "Atsushi Hatakeyama",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary",
+    creator: "@Hatakey2Atsushi",
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({

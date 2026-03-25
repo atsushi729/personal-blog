@@ -1,3 +1,18 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Get in touch with Atsushi Hatakeyama via email, Twitter/X, GitHub, or LinkedIn.",
+  openGraph: {
+    title: "Contact | Atsushi Hatakeyama",
+    description: "Get in touch with Atsushi Hatakeyama via email, Twitter/X, GitHub, or LinkedIn.",
+    url: "/contact",
+  },
+  alternates: {
+    canonical: "/contact",
+  },
+};
+
 export default function Contact() {
   return (
     <article className="prose font-serif">

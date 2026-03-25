@@ -1,3 +1,18 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "A selection of projects by Atsushi Hatakeyama — experiments, tools, and things built with Next.js, TypeScript, and more.",
+  openGraph: {
+    title: "Projects | Atsushi Hatakeyama",
+    description: "A selection of projects by Atsushi Hatakeyama — experiments, tools, and things built with Next.js, TypeScript, and more.",
+    url: "/projects",
+  },
+  alternates: {
+    canonical: "/projects",
+  },
+};
+
 interface Project {
   title: string;
   description: string;
