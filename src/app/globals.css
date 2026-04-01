@@ -113,3 +113,89 @@ body {
 .prose a:hover::after {
   background-color: #262626;
 }
+
+.reveal-sequence .reveal-item {
+  --enter-delay: 0ms;
+  opacity: 0;
+  transform: translateY(22px);
+  animation: about-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--enter-delay);
+  will-change: opacity, transform;
+}
+
+.handwritten-underline {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.35rem;
+}
+
+.handwritten-underline::after {
+  content: "";
+  position: absolute;
+  left: -0.18rem;
+  right: -0.24rem;
+  bottom: -0.14rem;
+  height: 0.58rem;
+  opacity: 0;
+  transform: scaleX(0.04) rotate(-0.6deg);
+  transform-origin: left center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='320' height='28' viewBox='0 0 320 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 15.2C43.6 14.3 78.4 13.8 113.1 13.9C147.6 14 182 14.9 216.5 14.9C246.2 14.9 275.6 14.2 305.2 13.8' stroke='%23262626' stroke-width='2.1' stroke-linecap='round'/%3E%3Cpath d='M11.4 18.7C42.9 18 74.4 17.7 105.9 17.9C141.8 18.2 177.7 18.9 213.6 19C243.9 19.1 273.9 18.4 304.2 17.8' stroke='%23262626' stroke-width='1.15' stroke-linecap='round' stroke-opacity='0.34'/%3E%3C/svg%3E");
+  animation:
+    handwritten-underline-in 520ms cubic-bezier(0.22, 0.88, 0.24, 1) forwards,
+    handwritten-underline-settle 2200ms ease-in-out 620ms infinite alternate;
+  filter: drop-shadow(0 1px 0 rgba(38, 38, 38, 0.06));
+  animation-delay: calc(var(--enter-delay) + 150ms), calc(var(--enter-delay) + 760ms);
+}
+
+@keyframes about-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes handwritten-underline-in {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.04) rotate(-0.6deg) translateY(0.03rem);
+  }
+  35% {
+    opacity: 1;
+  }
+  72% {
+    transform: scaleX(1.02) rotate(-0.6deg) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1) rotate(-0.6deg) translateY(0);
+  }
+}
+
+@keyframes handwritten-underline-settle {
+  from {
+    transform: scaleX(1) translateY(0) rotate(-0.6deg);
+  }
+  to {
+    transform: scaleX(1.01) translateY(0.02rem) rotate(-0.2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-sequence .reveal-item {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .handwritten-underline::after {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
