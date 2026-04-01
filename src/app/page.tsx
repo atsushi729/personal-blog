@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About",
@@ -58,8 +59,8 @@ export default function About() {
 
       <p className="reveal-item" style={{ "--enter-delay": "720ms" } as CSSProperties}>
         Feel free to explore my{" "}
-        <a href="/blog">blog</a> where I share my thoughts, or check out my{" "}
-        <a href="/projects">projects</a> to see what I&apos;ve been building.
+        <Link href="/blog">blog</Link> where I share my thoughts, or check out my{" "}
+        <Link href="/projects">projects</Link> to see what I&apos;ve been building.
       </p>
     </article>
   );

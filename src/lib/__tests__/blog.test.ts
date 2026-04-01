@@ -4,8 +4,6 @@ import { getAllPosts, getPostBySlug, getAllSlugs } from '../blog';
 jest.mock('fs');
 const fs = jest.requireMock('fs') as jest.Mocked<typeof import('fs')>;
 
-const MOCK_DIR = '/mock/content/blog';
-
 // process.cwd() をモック
 jest.spyOn(process, 'cwd').mockReturnValue('/mock');
 
@@ -24,13 +22,6 @@ date: 2024-01-10
 excerpt: Excerpt of Post B
 ---
 Content of post B.
-`;
-
-const POST_DATE_OBJ = `---
-title: Date Object Post
-date: 2023-06-01
----
-Content here.
 `;
 
 beforeEach(() => {
