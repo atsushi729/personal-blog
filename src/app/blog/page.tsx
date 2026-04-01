@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
+import BlogList from "@/components/BlogList";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -19,43 +19,11 @@ export default function Blog() {
   const posts = getAllPosts();
 
   return (
-    <div className="font-serif">
-      <h1 className="text-3xl font-normal text-neutral-800 mb-6">
-        Blog
-      </h1>
-
-      <p className="text-neutral-800 mb-12">
-        Thoughts on software, technology, and building things.
-      </p>
-
+    <div className="font-sans">
       {posts.length === 0 ? (
-        <p className="text-neutral-500">No posts yet.</p>
+        <p className="text-neutral-500 text-sm">No posts yet.</p>
       ) : (
-        <div className="space-y-10">
-          {posts.map((post) => (
-            <article key={post.slug} className="group">
-              <Link href={`/blog/${post.slug}`} className="block">
-                <div className="flex items-baseline justify-between gap-4">
-                  <h2 className="group-link-underline text-xl font-normal text-neutral-800 group-hover:text-neutral-600 transition-colors">
-                    {post.title}
-                  </h2>
-                  <time className="shrink-0 text-sm text-neutral-500 font-sans">
-                    {new Date(post.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
-                </div>
-                {post.excerpt && (
-                  <p className="text-neutral-600 mt-2">
-                    {post.excerpt}
-                  </p>
-                )}
-              </Link>
-            </article>
-          ))}
-        </div>
+        <BlogList posts={posts} />
       )}
     </div>
   );
