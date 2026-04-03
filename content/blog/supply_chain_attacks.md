@@ -1,0 +1,50 @@
+---
+title: Understanding Supply Chain Attacks
+date: 2026-04-03
+excerpt: A concise overview of supply chain attacks, real-world incidents, and practical mitigation strategies.
+---
+
+## What is a Supply Chain Attack?
+
+A supply chain attack is a type of cyberattack where attackers do not directly target the main organization, but instead exploit vulnerabilities in related parties such as vendors, contractors, or service providers. By compromising these weaker links, attackers can infiltrate the intended target system.
+
+In the context of package managers, attackers may inject malware into specific versions of software packages. When developers install these compromised versions, the attack is executed. Typical consequences include the leakage of API keys, execution of arbitrary commands, and exfiltration of sensitive system information.
+
+## Real-World Examples
+
+Several notable incidents highlight the risks of supply chain attacks:
+
+- [Trivy](https://www.paloaltonetworks.com/blog/cloud-security/trivy-supply-chain-attack/) were compromised, allowing attackers to steal SSH keys and cloud tokens simply through CI execution.
+- [LiteLLM](https://www.trendmicro.com/en_us/research/26/c/inside-litellm-supply-chain-compromise.html) briefly distributed a malicious version for several hours, exposing users to potential threats.
+- A critical vulnerability was discovered in the SSO system within [Atlassian](https://research.checkpoint.com/2021/a-supply-chain-breach-taking-over-an-atlassian-account/), demonstrating how internal authentication systems can become attack vectors.
+- [Axious contained marware](https://socket.dev/blog/axios-npm-package-compromised) in several hours which can execute RAT (Remote Access Trojan) .
+
+## Mitigation Strategies
+
+To reduce the risk of supply chain attacks, the following practices are essential:
+
+### 1. Cooldown Strategy (min-release-age)
+
+Malicious package versions are often identified and removed shortly after release. For example, in some incidents, compromised versions were addressed within a few hours. Therefore, avoiding immediate adoption of the latest versions can significantly reduce risk.
+
+The cooldown strategy ([min-release-age](https://github.com/npm/cli/releases/tag/v11.10.0)) enforces installation only after a certain period has passed since release. This can be configured both locally and in CI/CD pipelines.
+
+```shell
+# pnpm -> minimumReleaseAge (minutes)
+pnpm config set --location=global minimumReleaseAge 1440
+
+# npm -> min-release-age (days)
+npm install --min-release-age=3
+```
+
+### 2. Credential Rotation
+
+Regular rotation of credentials is critical, especially when a compromise is suspected. Sensitive information such as API keys, SSH private keys, and environment variables should be updated periodically to minimize potential damage.
+
+Services like [Amazon Web Services Secrets Manager](https://docs.aws.amazon.com/ja_jp/secretsmanager/latest/userguide/rotating-secrets.html) provide automated mechanisms for secure credential rotation.
+
+## Summary
+
+As the name suggests, supply chain attacks exploit the weakest link in a chain of dependencies. Strengthening security in only one area is insufficient; organizations must take a holistic approach, securing packages, software dependencies, and sensitive information continuously.
+
+Ultimately, proactive and layered security practices are essential to defend against increasingly sophisticated supply chain threats.
