@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
+import { MarkdownContent } from "@/components/MarkdownContent";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
 
 export async function generateMetadata({
@@ -21,7 +21,8 @@ export async function generateMetadata({
     description: post.excerpt || `Read "${post.title}" by Atsushi Hatakeyama.`,
     openGraph: {
       title: post.title,
-      description: post.excerpt || `Read "${post.title}" by Atsushi Hatakeyama.`,
+      description:
+        post.excerpt || `Read "${post.title}" by Atsushi Hatakeyama.`,
       type: "article",
       url: `/blog/${slug}`,
       publishedTime: post.date,
@@ -30,7 +31,8 @@ export async function generateMetadata({
     twitter: {
       card: "summary",
       title: post.title,
-      description: post.excerpt || `Read "${post.title}" by Atsushi Hatakeyama.`,
+      description:
+        post.excerpt || `Read "${post.title}" by Atsushi Hatakeyama.`,
     },
     alternates: {
       canonical: `/blog/${slug}`,
@@ -77,9 +79,7 @@ export default async function BlogPost({
         </time>
       </header>
 
-      <div className="prose prose-neutral max-w-none">
-        <ReactMarkdown>{post.content}</ReactMarkdown>
-      </div>
+      <MarkdownContent content={post.content} />
     </article>
   );
 }
