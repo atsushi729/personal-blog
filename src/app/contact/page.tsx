@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -15,19 +16,19 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <article className="prose font-serif">
-      <h1>Contact</h1>
+    <article className="prose reveal-sequence font-serif">
+      <h1 className="reveal-item" style={{ "--enter-delay": "0ms" } as CSSProperties}>Contact</h1>
 
-      <p>
+      <p className="reveal-item" style={{ "--enter-delay": "90ms" } as CSSProperties}>
         I&apos;m always happy to connect with fellow developers, discuss ideas,
         or explore collaboration opportunities.
       </p>
 
-      <h2>Get in touch</h2>
+      <h2 className="reveal-item" style={{ "--enter-delay": "180ms" } as CSSProperties}>Get in touch</h2>
 
-      <p>The best ways to reach me:</p>
+      <p className="reveal-item" style={{ "--enter-delay": "270ms" } as CSSProperties}>The best ways to reach me:</p>
 
-      <ul className="space-y-3 list-none pl-0">
+      <ul className="reveal-item space-y-3 list-none pl-0" style={{ "--enter-delay": "360ms" } as CSSProperties}>
         <li>
           <a href="mailto:dtianshan7@gmail.com">dtianshan7@gmail.com</a>
           <span className="text-neutral-500 ml-2">— For general</span>
@@ -68,9 +69,9 @@ export default function Contact() {
         </li>
       </ul>
 
-      <h2>Response time</h2>
+      <h2 className="reveal-item" style={{ "--enter-delay": "450ms" } as CSSProperties}>Response time</h2>
 
-      <p>
+      <p className="reveal-item" style={{ "--enter-delay": "540ms" } as CSSProperties}>
         I try to respond to all messages within a few days. If it&apos;s urgent,
         please mention that in your message.
       </p>

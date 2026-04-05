@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -54,17 +55,17 @@ const projects: Project[] = [
 
 export default function Projects() {
   return (
-    <div className="font-serif">
-      <h1 className="text-3xl font-normal text-neutral-800 mb-6">Projects</h1>
+    <div className="reveal-sequence font-serif">
+      <h1 className="reveal-item text-3xl font-normal text-neutral-800 mb-6" style={{ "--enter-delay": "0ms" } as CSSProperties}>Projects</h1>
 
-      <p className="text-neutral-800 mb-12">
+      <p className="reveal-item text-neutral-800 mb-12" style={{ "--enter-delay": "90ms" } as CSSProperties}>
         A selection of projects I&apos;ve worked on. Some are experiments,
         others are tools I use regularly.
       </p>
 
       <div className="space-y-10">
-        {projects.map((project) => (
-          <article key={project.title} className="group">
+        {projects.map((project, index) => (
+          <article key={project.title} className="reveal-item group" style={{ "--enter-delay": `${180 + index * 90}ms` } as CSSProperties}>
             <h2 className="text-xl font-normal text-neutral-800">
               {project.title}
             </h2>
