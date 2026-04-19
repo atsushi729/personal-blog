@@ -7,11 +7,13 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { TreeTraversalDemo } from "@/components/blog/TreeTraversalDemo";
 import { TreeTraversalDiagram } from "@/components/blog/TreeTraversalDiagram";
+import { TreeTraversalOrders } from "@/components/blog/TreeTraversalOrders";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
 
 const mdxComponents = {
   TreeTraversalDemo,
   TreeTraversalDiagram,
+  TreeTraversalOrders,
   code({ className, children, ...props }: React.HTMLAttributes<HTMLElement>) {
     const language = (className ?? "").match(/language-([\w-]+)/)?.[1];
     if (!language) {
