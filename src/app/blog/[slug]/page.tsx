@@ -1,8 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import { MarkdownContent } from "@/components/MarkdownContent";
+import { TreeTraversalDemo } from "@/components/blog/TreeTraversalDemo";
+import { TreeTraversalDiagram } from "@/components/blog/TreeTraversalDiagram";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
+
+const mdxComponents = {
+  TreeTraversalDemo,
+  TreeTraversalDiagram,
+  table: (props: React.HTMLAttributes<HTMLTableElement>) => (
+    <div className="overflow-x-auto my-6">
+      <table className="w-full border-collapse text-sm" {...props} />
+    </div>
+  ),
+  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <thead className="border-b border-neutral-300" {...props} />
+  ),
+  th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (
+    <th className="px-4 py-2 text-left font-semibold text-neutral-700 border-b border-neutral-300" {...props} />
+  ),
+  td: (props: React.TdHTMLAttributes<HTMLTableCellElement>) => (
+    <td className="px-4 py-2 border-b border-neutral-200 text-neutral-700" {...props} />
+  ),
+  tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
+    <tr className="hover:bg-neutral-50 transition-colors" {...props} />
+  ),
+};
 
 export async function generateMetadata({
   params,
@@ -79,7 +105,17 @@ export default async function BlogPost({
         </time>
       </header>
 
-      <MarkdownContent content={post.content} />
+      {post.isMdx ? (
+        <div className="prose prose-neutral max-w-none">
+          <MDXRemote
+            source={post.content}
+            components={mdxComponents}
+            options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+          />
+        </div>
+      ) : (
+        <MarkdownContent content={post.content} />
+      )}
     </article>
   );
 }
