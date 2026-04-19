@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { TreeTraversalDemo } from "@/components/blog/TreeTraversalDemo";
 import { TreeTraversalDiagram } from "@/components/blog/TreeTraversalDiagram";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
@@ -10,6 +12,26 @@ import { getPostBySlug, getAllSlugs } from "@/lib/blog";
 const mdxComponents = {
   TreeTraversalDemo,
   TreeTraversalDiagram,
+  code({ className, children, ...props }: React.HTMLAttributes<HTMLElement>) {
+    const language = (className ?? "").match(/language-([\w-]+)/)?.[1];
+    if (!language) {
+      return (
+        <code className="bg-neutral-100 text-neutral-800 rounded px-1 py-0.5 text-sm font-mono" {...props}>
+          {children}
+        </code>
+      );
+    }
+    return (
+      <SyntaxHighlighter
+        style={oneLight}
+        language={language}
+        PreTag="div"
+        customStyle={{ borderRadius: "6px", fontSize: "0.875rem", marginBottom: "1.25rem" }}
+      >
+        {String(children).replace(/\n$/, "")}
+      </SyntaxHighlighter>
+    );
+  },
   table: (props: React.HTMLAttributes<HTMLTableElement>) => (
     <div className="overflow-x-auto my-6">
       <table className="w-full border-collapse text-sm" {...props} />
