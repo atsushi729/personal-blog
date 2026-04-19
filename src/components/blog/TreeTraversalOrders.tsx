@@ -21,6 +21,14 @@ export function TreeTraversalOrders() {
     return () => observer.disconnect();
   }, []);
 
+  function replay() {
+    const el = containerRef.current;
+    if (!el) return;
+    el.classList.remove("tto-playing");
+    void el.offsetWidth; // reflow to reset animations
+    el.classList.add("tto-playing");
+  }
+
   return (
     <div ref={containerRef} className="not-prose my-8 overflow-x-auto">
       <svg viewBox="0 0 680 520" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
@@ -34,15 +42,15 @@ export function TreeTraversalOrders() {
         <style>{`
           .tto-f  { opacity: 0; }
           .tto-a  { opacity: 0; stroke-dasharray: 100; stroke-dashoffset: 100; }
-          .tto-np { fill: rgb(225,225,230); }
-          .tto-ng { fill: rgb(220,230,225); }
-          .tto-no { fill: rgb(230,225,220); }
+          .tto-np { fill: rgb(170,170,178); }
+          .tto-ng { fill: rgb(165,178,172); }
+          .tto-no { fill: rgb(178,168,162); }
 
           @keyframes tto-fade  { from { opacity: 0; } to { opacity: 1; } }
           @keyframes tto-draw  { from { stroke-dashoffset: 100; opacity: 1; } to { stroke-dashoffset: 0; opacity: 1; } }
-          @keyframes tto-vp { from { fill: rgb(225,225,230); } to { fill: rgb(238,237,254); } }
-          @keyframes tto-vg { from { fill: rgb(220,230,225); } to { fill: rgb(225,245,238); } }
-          @keyframes tto-vo { from { fill: rgb(230,225,220); } to { fill: rgb(250,236,231); } }
+          @keyframes tto-vp { from { fill: rgb(170,170,178); } to { fill: rgb(238,237,254); } }
+          @keyframes tto-vg { from { fill: rgb(165,178,172); } to { fill: rgb(225,245,238); } }
+          @keyframes tto-vo { from { fill: rgb(178,168,162); } to { fill: rgb(250,236,231); } }
 
           .tto-playing .tto-f  { animation: tto-fade 0.5s ease forwards; }
           .tto-playing .tto-a  { animation: tto-draw 0.5s ease forwards; }
@@ -189,6 +197,18 @@ export function TreeTraversalOrders() {
         <text x="340" y="467" textAnchor="middle" fill="rgb(61,61,58)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">B → C → A</text>
         <text x="567" y="467" textAnchor="middle" fill="rgb(61,61,58)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">Memory free / dependency resolve</text>
       </svg>
+      <div className="flex justify-center mt-3">
+        <button
+          onClick={replay}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans text-neutral-500 border border-neutral-200 rounded-md hover:text-neutral-700 hover:border-neutral-400 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+          Replay
+        </button>
+      </div>
     </div>
   );
 }
