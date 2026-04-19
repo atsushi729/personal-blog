@@ -1,10 +1,8 @@
 import { getAllPosts, getPostBySlug, getAllSlugs } from '../blog';
 
-// fs モジュールをモック
 jest.mock('fs');
 const fs = jest.requireMock('fs') as jest.Mocked<typeof import('fs')>;
 
-// process.cwd() をモック
 jest.spyOn(process, 'cwd').mockReturnValue('/mock');
 
 const POST_A = `---
@@ -34,12 +32,12 @@ describe('getAllPosts', () => {
     expect(getAllPosts()).toEqual([]);
   });
 
-  it('.md ファイルのみを読み込む', () => {
+  it('.mdx ファイルのみを読み込む', () => {
     fs.existsSync.mockReturnValue(true);
-    fs.readdirSync.mockReturnValue(['post-a.md', 'post-b.md', 'readme.txt'] as unknown as ReturnType<typeof fs.readdirSync>);
+    fs.readdirSync.mockReturnValue(['post-a.mdx', 'post-b.mdx', 'readme.txt'] as unknown as ReturnType<typeof fs.readdirSync>);
     fs.readFileSync.mockImplementation((filePath) => {
-      if (String(filePath).includes('post-a.md')) return POST_A;
-      if (String(filePath).includes('post-b.md')) return POST_B;
+      if (String(filePath).includes('post-a.mdx')) return POST_A;
+      if (String(filePath).includes('post-b.mdx')) return POST_B;
       return '';
     });
 
@@ -50,10 +48,10 @@ describe('getAllPosts', () => {
 
   it('日付の降順にソートされる', () => {
     fs.existsSync.mockReturnValue(true);
-    fs.readdirSync.mockReturnValue(['post-b.md', 'post-a.md'] as unknown as ReturnType<typeof fs.readdirSync>);
+    fs.readdirSync.mockReturnValue(['post-b.mdx', 'post-a.mdx'] as unknown as ReturnType<typeof fs.readdirSync>);
     fs.readFileSync.mockImplementation((filePath) => {
-      if (String(filePath).includes('post-a.md')) return POST_A;
-      if (String(filePath).includes('post-b.md')) return POST_B;
+      if (String(filePath).includes('post-a.mdx')) return POST_A;
+      if (String(filePath).includes('post-b.mdx')) return POST_B;
       return '';
     });
 
@@ -64,7 +62,7 @@ describe('getAllPosts', () => {
 
   it('各投稿のフィールドを正しく解析する', () => {
     fs.existsSync.mockReturnValue(true);
-    fs.readdirSync.mockReturnValue(['post-a.md'] as unknown as ReturnType<typeof fs.readdirSync>);
+    fs.readdirSync.mockReturnValue(['post-a.mdx'] as unknown as ReturnType<typeof fs.readdirSync>);
     fs.readFileSync.mockReturnValue(POST_A);
 
     const [post] = getAllPosts();
@@ -72,14 +70,12 @@ describe('getAllPosts', () => {
     expect(post.title).toBe('Post A');
     expect(post.date).toBe('2024-03-15');
     expect(post.excerpt).toBe('Excerpt of Post A');
-    // H1 見出しがコンテンツから除去されていること
-    expect(post.content).not.toMatch(/^# Post A/);
     expect(post.content).toContain('Content of post A.');
   });
 
   it('title がない場合は slug をフォールバックにする', () => {
     fs.existsSync.mockReturnValue(true);
-    fs.readdirSync.mockReturnValue(['my-post.md'] as unknown as ReturnType<typeof fs.readdirSync>);
+    fs.readdirSync.mockReturnValue(['my-post.mdx'] as unknown as ReturnType<typeof fs.readdirSync>);
     fs.readFileSync.mockReturnValue('---\ndate: 2024-01-01\n---\nBody');
 
     const [post] = getAllPosts();
@@ -89,12 +85,11 @@ describe('getAllPosts', () => {
 
 describe('getPostBySlug', () => {
   it('ファイルが存在しない場合は null を返す', () => {
-    fs.existsSync.mockReturnValue(false);
+    fs.readFileSync.mockImplementation(() => { throw new Error('ENOENT'); });
     expect(getPostBySlug('non-existent')).toBeNull();
   });
 
   it('スラッグに対応する投稿を返す', () => {
-    fs.existsSync.mockReturnValue(true);
     fs.readFileSync.mockReturnValue(POST_A);
 
     const post = getPostBySlug('post-a');
@@ -105,8 +100,6 @@ describe('getPostBySlug', () => {
   });
 
   it('Date オブジェクト型の日付を YYYY-MM-DD 文字列に変換する', () => {
-    fs.existsSync.mockReturnValue(true);
-    // gray-matter が Date オブジェクトをパースするケース
     const content = `---\ntitle: Test\ndate: 2023-06-01\n---\nBody`;
     fs.readFileSync.mockReturnValue(content);
 
@@ -121,9 +114,9 @@ describe('getAllSlugs', () => {
     expect(getAllSlugs()).toEqual([]);
   });
 
-  it('.md ファイルから .md 拡張子を除いた slug 一覧を返す', () => {
+  it('.mdx ファイルから拡張子を除いた slug 一覧を返す', () => {
     fs.existsSync.mockReturnValue(true);
-    fs.readdirSync.mockReturnValue(['alpha.md', 'beta.md', 'notes.txt'] as unknown as ReturnType<typeof fs.readdirSync>);
+    fs.readdirSync.mockReturnValue(['alpha.mdx', 'beta.mdx', 'notes.txt'] as unknown as ReturnType<typeof fs.readdirSync>);
 
     const slugs = getAllSlugs();
     expect(slugs).toEqual(['alpha', 'beta']);

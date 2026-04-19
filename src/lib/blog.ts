@@ -10,12 +10,10 @@ export interface BlogPost {
   date: string;
   excerpt?: string;
   content: string;
-  isMdx?: boolean;
 }
 
 function parseFile(fileName: string): BlogPost {
-  const isMdx = fileName.endsWith('.mdx');
-  const slug = fileName.replace(/\.(md|mdx)$/, '');
+  const slug = fileName.replace(/\.mdx$/, '');
   const fullPath = path.join(blogDirectory, fileName);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
@@ -29,8 +27,7 @@ function parseFile(fileName: string): BlogPost {
     title: data.title || slug,
     date,
     excerpt: data.excerpt || '',
-    content: isMdx ? content : content.replace(/^#{1,6}\s+.+\n?/, ''),
-    isMdx,
+    content,
   };
 }
 
@@ -39,23 +36,18 @@ export function getAllPosts(): BlogPost[] {
     return [];
   }
 
-  const fileNames = fs.readdirSync(blogDirectory);
-  const allPosts = fileNames
-    .filter((fileName) => fileName.endsWith('.md') || fileName.endsWith('.mdx'))
-    .map(parseFile);
+  const fileNames = fs.readdirSync(blogDirectory).filter((f) => f.endsWith('.mdx'));
+  const allPosts = fileNames.map(parseFile);
 
   return allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {
-  for (const ext of ['mdx', 'md'] as const) {
-    try {
-      return parseFile(`${slug}.${ext}`);
-    } catch {
-      continue;
-    }
+  try {
+    return parseFile(`${slug}.mdx`);
+  } catch {
+    return null;
   }
-  return null;
 }
 
 export function getAllSlugs(): string[] {
@@ -63,8 +55,7 @@ export function getAllSlugs(): string[] {
     return [];
   }
 
-  const fileNames = fs.readdirSync(blogDirectory);
-  return fileNames
-    .filter((fileName) => fileName.endsWith('.md') || fileName.endsWith('.mdx'))
-    .map((fileName) => fileName.replace(/\.(md|mdx)$/, ''));
+  return fs.readdirSync(blogDirectory)
+    .filter((f) => f.endsWith('.mdx'))
+    .map((f) => f.replace(/\.mdx$/, ''));
 }

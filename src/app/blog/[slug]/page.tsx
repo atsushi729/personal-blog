@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
-import { MarkdownContent } from "@/components/MarkdownContent";
 import { TreeTraversalDemo } from "@/components/blog/TreeTraversalDemo";
 import { TreeTraversalDiagram } from "@/components/blog/TreeTraversalDiagram";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
@@ -105,17 +104,13 @@ export default async function BlogPost({
         </time>
       </header>
 
-      {post.isMdx ? (
-        <div className="prose prose-neutral max-w-none">
-          <MDXRemote
-            source={post.content}
-            components={mdxComponents}
-            options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
-          />
-        </div>
-      ) : (
-        <MarkdownContent content={post.content} />
-      )}
+      <div className="prose prose-neutral max-w-none">
+        <MDXRemote
+          source={post.content}
+          components={mdxComponents}
+          options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+        />
+      </div>
     </article>
   );
 }
