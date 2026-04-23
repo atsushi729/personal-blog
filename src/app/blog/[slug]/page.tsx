@@ -9,6 +9,10 @@ import { blogComponentRegistry } from "@/components/blog/registry";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
 
 const baseMdxComponents = {
+  img: ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt={alt ?? ""} className="w-full my-6" {...props} />
+  ),
   code({ className, children, ...props }: React.HTMLAttributes<HTMLElement>) {
     const language = (className ?? "").match(/language-([\w-]+)/)?.[1];
     if (!language) {
