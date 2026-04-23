@@ -92,6 +92,10 @@ body {
   @apply list-disc list-inside mb-4;
 }
 
+.prose ol {
+  @apply list-decimal list-inside mb-4;
+}
+
 .prose a {
   @apply text-neutral-800 no-underline;
   position: relative;
