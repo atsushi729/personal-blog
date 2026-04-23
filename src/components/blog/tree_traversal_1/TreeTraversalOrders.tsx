@@ -1,36 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useAnimatedDiagram } from "@/hooks/useAnimatedDiagram";
+import { ReplayButton } from "@/components/ui/ReplayButton";
 
 export function TreeTraversalOrders() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("tto-playing");
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  function replay() {
-    const el = containerRef.current;
-    if (!el) return;
-    el.classList.remove("tto-playing");
-    void el.offsetWidth; // reflow to reset animations
-    el.classList.add("tto-playing");
-  }
+  const { ref, replay } = useAnimatedDiagram("tto-playing");
 
   return (
-    <div ref={containerRef} className="not-prose my-8 overflow-x-auto">
+    <div ref={ref} className="not-prose my-8 overflow-x-auto">
       <svg viewBox="0 0 680 520" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
         <title>Tree Traversal Orders: Pre-Order, In-Order, Post-Order</title>
         <desc>Comparison of three binary tree traversal methods with animated diagrams and pseudocode.</desc>
@@ -189,16 +166,7 @@ export function TreeTraversalOrders() {
         <text x="567" y="467" textAnchor="middle" fill="rgb(61,61,58)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">Memory free / dependency resolve</text>
       </svg>
       <div className="flex justify-center mt-3">
-        <button
-          onClick={replay}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans text-neutral-500 border border-neutral-200 rounded-md hover:text-neutral-700 hover:border-neutral-400 transition-colors"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-            <path d="M3 3v5h5"/>
-          </svg>
-          Replay
-        </button>
+        <ReplayButton onClick={replay} />
       </div>
     </div>
   );
