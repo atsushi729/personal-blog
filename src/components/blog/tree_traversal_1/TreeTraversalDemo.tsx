@@ -58,7 +58,7 @@ function dfsPostorder(id: number, order: number[] = []): number[] {
 }
 
 const traversals: Record<TraversalType, () => number[]> = {
-  "bfs": () => bfs(),
+  "bfs": bfs,
   "dfs-pre": () => dfsPreorder(0),
   "dfs-in": () => dfsInorder(0),
   "dfs-post": () => dfsPostorder(0),

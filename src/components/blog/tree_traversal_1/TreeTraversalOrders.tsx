@@ -70,21 +70,18 @@ export function TreeTraversalOrders() {
         <text x="113" y="38" textAnchor="middle" fill="rgb(61,61,58)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">root → left → right</text>
         <polygon points="113,55 55,130 171,130" fill="none" stroke="rgba(31,30,29,0.3)" strokeWidth="1.2"/>
 
-        {/* root: visited at step 1 */}
         <circle className="tto-np d1" cx="113" cy="62" r="14" stroke="rgb(83,74,183)" strokeWidth="0.5"/>
         <text x="113" y="62" textAnchor="middle" dominantBaseline="central" fill="rgb(60,52,137)" fontSize="14" fontWeight="500" fontFamily="-apple-system,system-ui,sans-serif">R</text>
         <text className="tto-f d1" x="133" y="55" fill="rgb(127,119,221)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">①</text>
 
         <path className="tto-a d2" d="M105,73 Q88,93 80,111" fill="none" stroke="rgb(127,119,221)" strokeWidth="1.4" markerEnd="url(#tto-arrow)"/>
 
-        {/* left: visited at step 3 */}
         <circle className="tto-ng d3" cx="72" cy="123" r="14" stroke="rgb(15,110,86)" strokeWidth="0.5"/>
         <text x="72" y="123" textAnchor="middle" dominantBaseline="central" fill="rgb(8,80,65)" fontSize="14" fontWeight="500" fontFamily="-apple-system,system-ui,sans-serif">L</text>
         <text className="tto-f d3" x="52" y="115" fill="rgb(29,158,117)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">②</text>
 
         <path className="tto-a d4" d="M86,117 Q120,105 140,113" fill="none" stroke="rgb(29,158,117)" strokeWidth="1.4" markerEnd="url(#tto-arrow)"/>
 
-        {/* right: visited at step 5 */}
         <circle className="tto-no d5" cx="154" cy="123" r="14" stroke="rgb(153,60,29)" strokeWidth="0.5"/>
         <text x="154" y="123" textAnchor="middle" dominantBaseline="central" fill="rgb(113,43,19)" fontSize="14" fontWeight="500" fontFamily="-apple-system,system-ui,sans-serif">R</text>
         <text className="tto-f d5" x="172" y="115" fill="rgb(216,90,48)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">③</text>
@@ -103,21 +100,18 @@ export function TreeTraversalOrders() {
         <text x="340" y="38" textAnchor="middle" fill="rgb(61,61,58)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">left → root → right</text>
         <polygon points="340,55 282,130 398,130" fill="none" stroke="rgba(31,30,29,0.3)" strokeWidth="1.2"/>
 
-        {/* left: visited at step 1 */}
         <circle className="tto-ng d1" cx="299" cy="123" r="14" stroke="rgb(15,110,86)" strokeWidth="0.5"/>
         <text x="299" y="123" textAnchor="middle" dominantBaseline="central" fill="rgb(8,80,65)" fontSize="14" fontWeight="500" fontFamily="-apple-system,system-ui,sans-serif">L</text>
         <text className="tto-f d1" x="279" y="115" fill="rgb(29,158,117)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">①</text>
 
         <path className="tto-a d2" d="M307,113 Q320,93 332,75" fill="none" stroke="rgb(29,158,117)" strokeWidth="1.4" markerEnd="url(#tto-arrow)"/>
 
-        {/* root: visited at step 3 */}
         <circle className="tto-np d3" cx="340" cy="62" r="14" stroke="rgb(83,74,183)" strokeWidth="0.5"/>
         <text x="340" y="62" textAnchor="middle" dominantBaseline="central" fill="rgb(60,52,137)" fontSize="14" fontWeight="500" fontFamily="-apple-system,system-ui,sans-serif">R</text>
         <text className="tto-f d3" x="360" y="55" fill="rgb(127,119,221)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">②</text>
 
         <path className="tto-a d4" d="M352,73 Q366,93 373,111" fill="none" stroke="rgb(127,119,221)" strokeWidth="1.4" markerEnd="url(#tto-arrow)"/>
 
-        {/* right: visited at step 5 */}
         <circle className="tto-no d5" cx="381" cy="123" r="14" stroke="rgb(153,60,29)" strokeWidth="0.5"/>
         <text x="381" y="123" textAnchor="middle" dominantBaseline="central" fill="rgb(113,43,19)" fontSize="14" fontWeight="500" fontFamily="-apple-system,system-ui,sans-serif">R</text>
         <text className="tto-f d5" x="399" y="115" fill="rgb(216,90,48)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">③</text>
@@ -136,21 +130,18 @@ export function TreeTraversalOrders() {
         <text x="567" y="38" textAnchor="middle" fill="rgb(61,61,58)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">left → right → root</text>
         <polygon points="567,55 509,130 625,130" fill="none" stroke="rgba(31,30,29,0.3)" strokeWidth="1.2"/>
 
-        {/* left: visited at step 1 */}
         <circle className="tto-ng d1" cx="526" cy="123" r="14" stroke="rgb(15,110,86)" strokeWidth="0.5"/>
         <text x="526" y="123" textAnchor="middle" dominantBaseline="central" fill="rgb(8,80,65)" fontSize="14" fontWeight="500" fontFamily="-apple-system,system-ui,sans-serif">L</text>
         <text className="tto-f d1" x="506" y="115" fill="rgb(29,158,117)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">①</text>
 
         <path className="tto-a d2" d="M540,117 Q574,105 594,113" fill="none" stroke="rgb(29,158,117)" strokeWidth="1.4" markerEnd="url(#tto-arrow)"/>
 
-        {/* right: visited at step 3 */}
         <circle className="tto-no d3" cx="608" cy="123" r="14" stroke="rgb(153,60,29)" strokeWidth="0.5"/>
         <text x="608" y="123" textAnchor="middle" dominantBaseline="central" fill="rgb(113,43,19)" fontSize="14" fontWeight="500" fontFamily="-apple-system,system-ui,sans-serif">R</text>
         <text className="tto-f d3" x="626" y="115" fill="rgb(216,90,48)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">②</text>
 
         <path className="tto-a d4" d="M600,111 Q588,90 577,76" fill="none" stroke="rgb(216,90,48)" strokeWidth="1.4" markerEnd="url(#tto-arrow)"/>
 
-        {/* root: visited at step 5 */}
         <circle className="tto-np d5" cx="567" cy="62" r="14" stroke="rgb(83,74,183)" strokeWidth="0.5"/>
         <text x="567" y="62" textAnchor="middle" dominantBaseline="central" fill="rgb(60,52,137)" fontSize="14" fontWeight="500" fontFamily="-apple-system,system-ui,sans-serif">R</text>
         <text className="tto-f d5" x="587" y="55" fill="rgb(127,119,221)" fontSize="12" fontFamily="-apple-system,system-ui,sans-serif">③</text>

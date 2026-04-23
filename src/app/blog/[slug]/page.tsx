@@ -5,15 +5,10 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { TreeTraversalDemo } from "@/components/blog/TreeTraversalDemo";
-import { TreeTraversalDiagram } from "@/components/blog/TreeTraversalDiagram";
-import { TreeTraversalOrders } from "@/components/blog/TreeTraversalOrders";
+import { blogComponentRegistry } from "@/components/blog/registry";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
 
-const mdxComponents = {
-  TreeTraversalDemo,
-  TreeTraversalDiagram,
-  TreeTraversalOrders,
+const baseMdxComponents = {
   code({ className, children, ...props }: React.HTMLAttributes<HTMLElement>) {
     const language = (className ?? "").match(/language-([\w-]+)/)?.[1];
     if (!language) {
@@ -105,6 +100,11 @@ export default async function BlogPost({
   if (!post) {
     notFound();
   }
+
+  const slugComponents = blogComponentRegistry[slug];
+  const mdxComponents = slugComponents
+    ? { ...baseMdxComponents, ...slugComponents }
+    : baseMdxComponents;
 
   return (
     <article className="font-serif">
