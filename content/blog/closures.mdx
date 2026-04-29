@@ -1,0 +1,109 @@
+---
+title: クロージャ（Closure）
+date: 2026-04-29
+excerpt: Closures allow functions to retain access to their defining scope. This post explains the concept, purpose, and practical use cases including encapsulation, function factories, and memoization.
+---
+
+## 概要
+
+『関数が定義されたスコープ（レキシカル環境）を保持したまま実行される仕組み』
+
+通常、関数が終わるとそのスコープ内の変数はガベージコレクションで破棄される。しかし、内部関数が外側の変数を参照している場合、その変数はGCされずに保持される。
+
+<ClosuresDiagram />
+
+## 目的
+
+クロージャの目的は『関数に状態とスコープを持たせること』である。設計の観点から言うと以下4つに集約される。
+
+1. 状態の保持
+2. カプセル化
+3. 関数のカスタマイズ
+4. 非同期・コールバックでのコンテキスト保持
+
+## 使い方
+
+クロージャは複数のユースケースに適用できる。
+
+### 1. プライベート変数（Encapsulation）
+
+オブジェクト指向でいう『Privateフィールド』をクロージャで実現できる。Private変数を外側から直接触れないようにする手法で、状態の安全性や保守性を高めることができる。
+
+```jsx
+function createUser(name) {
+  let _name = name; // private
+
+  return {
+    getName() {
+      return _name;
+    },
+    setName(newName) {
+      _name = newName;
+    },
+  };
+}
+
+const user = createUser("Alice");
+
+console.log(user.getName()); // Alice
+user.setName("Bob");
+console.log(user.getName()); // Bob
+
+console.log(user._name); // undefined（cannot access directly）
+```
+
+### 2. 関数ファクトリー
+
+設定を閉じ込めた関数を量産することができる。`createMultiplier(2)` で作った関数は永遠に `2` を記憶する。
+
+```jsx
+function createMultiplier(multiplier) {
+  return function (value) {
+    return value * multiplier;
+  };
+}
+
+const double = createMultiplier(2);
+const triple = createMultiplier(3);
+
+console.log(double(5)); // 10
+console.log(triple(5)); // 15
+```
+
+### 3. メモ化
+
+計算が重い関数に『記憶力』を与える。同じ引数なら計算を省略してキャッシュから返す。`useMemo` や lodash の `_.memoize` も内部はこのパターンが該当する。
+
+```jsx
+function memoize(fn) {
+  const cache = {};
+
+  return function (...args) {
+    const key = JSON.stringify(args);
+
+    if (cache[key]) {
+      console.log("cache hit");
+      return cache[key];
+    }
+
+    console.log("compute");
+    const result = fn(...args);
+    cache[key] = result;
+    return result;
+  };
+}
+
+function slowAdd(a, b) {
+  return a + b;
+}
+
+const fastAdd = memoize(slowAdd);
+
+console.log(fastAdd(1, 2)); // compute → 3
+console.log(fastAdd(1, 2)); // cache hit → 3
+```
+
+## 参考
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures
+- https://ja.javascript.info/closure
