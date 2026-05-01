@@ -8,11 +8,17 @@ export default function AboutPage({ locale }: { locale: Locale }) {
 
   return (
     <article className="prose reveal-sequence font-serif">
-      <h1 className="reveal-item" style={{ "--enter-delay": "0ms" } as CSSProperties}>
+      <h1
+        className="reveal-item"
+        style={{ "--enter-delay": "0ms" } as CSSProperties}
+      >
         {content.title}
       </h1>
 
-      <p className="reveal-item" style={{ "--enter-delay": "90ms" } as CSSProperties}>
+      <p
+        className="reveal-item"
+        style={{ "--enter-delay": "90ms" } as CSSProperties}
+      >
         {content.intro}
       </p>
 
@@ -20,20 +26,27 @@ export default function AboutPage({ locale }: { locale: Locale }) {
         <section key={section.title}>
           <h2
             className="reveal-item"
-            style={{ "--enter-delay": `${180 + index * 180}ms` } as CSSProperties}
+            style={
+              { "--enter-delay": `${180 + index * 180}ms` } as CSSProperties
+            }
           >
             <span className="handwritten-underline">{section.title}</span>
           </h2>
           <p
             className="reveal-item"
-            style={{ "--enter-delay": `${270 + index * 180}ms` } as CSSProperties}
+            style={
+              { "--enter-delay": `${270 + index * 180}ms` } as CSSProperties
+            }
           >
             {section.body}
           </p>
         </section>
       ))}
 
-      <p className="reveal-item" style={{ "--enter-delay": "720ms" } as CSSProperties}>
+      <p
+        className="reveal-item"
+        style={{ "--enter-delay": "720ms" } as CSSProperties}
+      >
         {content.closingPrefix}{" "}
         <Link href={`/${locale}/blog`}>{content.blogLink}</Link>{" "}
         {content.closingMiddle}{" "}

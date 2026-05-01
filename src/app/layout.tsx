@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     default: "Atsushi Hatakeyama",
     template: "%s | Atsushi Hatakeyama",
   },
-  description: "Personal blog and portfolio of Atsushi Hatakeyama — software engineer writing about code, technology, and ideas.",
+  description:
+    "Personal blog and portfolio of Atsushi Hatakeyama — software engineer writing about code, technology, and ideas.",
   openGraph: {
     type: "website",
     siteName: "Atsushi Hatakeyama",
@@ -36,9 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-white">
-        <main className="max-w-xl mx-auto px-6 py-16">
-          {children}
-        </main>
+        <main className="max-w-xl mx-auto px-6 py-16">{children}</main>
       </body>
     </html>
   );

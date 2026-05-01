@@ -3,7 +3,12 @@ import { notFound } from "next/navigation";
 import { getAllPosts } from "@/lib/blog";
 import BlogList from "@/components/BlogList";
 import { getDictionary } from "@/i18n/dictionaries";
-import { isLocale, locales, localeToOgLocale, type Locale } from "@/i18n/config";
+import {
+  isLocale,
+  locales,
+  localeToOgLocale,
+  type Locale,
+} from "@/i18n/config";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

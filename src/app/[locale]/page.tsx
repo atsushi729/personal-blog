@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import AboutPage from "@/components/pages/AboutPage";
-import { isLocale, locales, localeToOgLocale, type Locale } from "@/i18n/config";
+import {
+  isLocale,
+  locales,
+  localeToOgLocale,
+  type Locale,
+} from "@/i18n/config";
 import { aboutContent } from "@/i18n/pages";
 
 const siteName = "Atsushi Hatakeyama";

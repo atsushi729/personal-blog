@@ -18,7 +18,8 @@ export const dictionaries = {
         "ソフトウェア、技術、ものづくりについての Atsushi Hatakeyama のブログです。",
       empty: "まだ投稿がありません。",
       back: "ブログへ戻る",
-      readPost: (title: string) => `Atsushi Hatakeyama による「${title}」を読む。`,
+      readPost: (title: string) =>
+        `Atsushi Hatakeyama による「${title}」を読む。`,
     },
   },
 } satisfies Record<Locale, unknown>;

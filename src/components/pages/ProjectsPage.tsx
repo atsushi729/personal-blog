@@ -46,17 +46,29 @@ export default function ProjectsPage({ locale }: { locale: Locale }) {
 
   return (
     <div className="reveal-sequence font-serif">
-      <h1 className="reveal-item text-3xl font-normal text-neutral-800 mb-6" style={{ "--enter-delay": "0ms" } as CSSProperties}>
+      <h1
+        className="reveal-item text-3xl font-normal text-neutral-800 mb-6"
+        style={{ "--enter-delay": "0ms" } as CSSProperties}
+      >
         {content.title}
       </h1>
 
-      <p className="reveal-item text-neutral-800 mb-12" style={{ "--enter-delay": "90ms" } as CSSProperties}>
+      <p
+        className="reveal-item text-neutral-800 mb-12"
+        style={{ "--enter-delay": "90ms" } as CSSProperties}
+      >
         {content.intro}
       </p>
 
       <div className="space-y-10">
         {projects.map((project, index) => (
-          <article key={project.title} className="reveal-item group" style={{ "--enter-delay": `${180 + index * 90}ms` } as CSSProperties}>
+          <article
+            key={project.title}
+            className="reveal-item group"
+            style={
+              { "--enter-delay": `${180 + index * 90}ms` } as CSSProperties
+            }
+          >
             <h2 className="text-xl font-normal text-neutral-800">
               {project.title}
             </h2>

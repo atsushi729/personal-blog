@@ -8,7 +8,11 @@ interface NavigationProps {
   locale: Locale;
 }
 
-function getLanguageHref(pathname: string, currentLocale: Locale, targetLocale: Locale) {
+function getLanguageHref(
+  pathname: string,
+  currentLocale: Locale,
+  targetLocale: Locale
+) {
   if (pathname === "/" || pathname === `/${currentLocale}`) {
     return `/${targetLocale}`;
   }
@@ -48,7 +52,10 @@ export default function Navigation({ locale }: NavigationProps) {
             </Link>
           ))}
         </div>
-        <div className="flex items-center rounded-full border border-neutral-200 bg-neutral-50 p-0.5" aria-label="Language">
+        <div
+          className="flex items-center rounded-full border border-neutral-200 bg-neutral-50 p-0.5"
+          aria-label="Language"
+        >
           {locales.map((targetLocale) => (
             <Link
               key={targetLocale}

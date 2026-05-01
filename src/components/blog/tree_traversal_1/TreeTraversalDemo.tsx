@@ -13,17 +13,22 @@ interface Node {
 }
 
 const nodes: Node[] = [
-  { id: 0, x: 200, y: 40,  label: "A", children: [1, 2] },
+  { id: 0, x: 200, y: 40, label: "A", children: [1, 2] },
   { id: 1, x: 100, y: 120, label: "B", children: [3, 4] },
   { id: 2, x: 300, y: 120, label: "C", children: [5, 6] },
-  { id: 3, x: 50,  y: 200, label: "D", children: [] },
+  { id: 3, x: 50, y: 200, label: "D", children: [] },
   { id: 4, x: 150, y: 200, label: "E", children: [] },
   { id: 5, x: 250, y: 200, label: "F", children: [] },
   { id: 6, x: 350, y: 200, label: "G", children: [] },
 ];
 
 const edges: [number, number][] = [
-  [0, 1], [0, 2], [1, 3], [1, 4], [2, 5], [2, 6],
+  [0, 1],
+  [0, 2],
+  [1, 3],
+  [1, 4],
+  [2, 5],
+  [2, 6],
 ];
 
 function bfs(): number[] {
@@ -58,14 +63,14 @@ function dfsPostorder(id: number, order: number[] = []): number[] {
 }
 
 const traversals: Record<TraversalType, () => number[]> = {
-  "bfs": bfs,
+  bfs: bfs,
   "dfs-pre": () => dfsPreorder(0),
   "dfs-in": () => dfsInorder(0),
   "dfs-post": () => dfsPostorder(0),
 };
 
 const labels: Record<TraversalType, string> = {
-  "bfs": "BFS (幅優先)",
+  bfs: "BFS (幅優先)",
   "dfs-pre": "DFS 前順 (Pre-order)",
   "dfs-in": "DFS 中順 (In-order)",
   "dfs-post": "DFS 後順 (Post-order)",
@@ -112,8 +117,10 @@ export function TreeTraversalDemo() {
         {edges.map(([a, b]) => (
           <line
             key={`${a}-${b}`}
-            x1={nodes[a].x} y1={nodes[a].y + 18}
-            x2={nodes[b].x} y2={nodes[b].y - 18}
+            x1={nodes[a].x}
+            y1={nodes[a].y + 18}
+            x2={nodes[b].x}
+            y2={nodes[b].y - 18}
             stroke="#d4d4d4"
             strokeWidth={2}
           />
@@ -128,7 +135,9 @@ export function TreeTraversalDemo() {
                 cy={node.y}
                 r={18}
                 fill={isCurrent ? "#1d4ed8" : isVisited ? "#93c5fd" : "white"}
-                stroke={isCurrent ? "#1e40af" : isVisited ? "#3b82f6" : "#a3a3a3"}
+                stroke={
+                  isCurrent ? "#1e40af" : isVisited ? "#3b82f6" : "#a3a3a3"
+                }
                 strokeWidth={2}
                 style={{ transition: "fill 0.3s, stroke 0.3s" }}
               />
@@ -169,8 +178,8 @@ export function TreeTraversalDemo() {
           {step < 0
             ? "「次へ」で開始"
             : step === order.length - 1
-            ? "完了"
-            : `ステップ ${step + 1} / ${order.length}`}
+              ? "完了"
+              : `ステップ ${step + 1} / ${order.length}`}
         </div>
       </div>
 
@@ -178,7 +187,10 @@ export function TreeTraversalDemo() {
         <div className="mt-3 text-sm text-neutral-600">
           訪問順:{" "}
           <span className="font-mono">
-            {order.slice(0, step + 1).map((id) => nodes[id].label).join(" → ")}
+            {order
+              .slice(0, step + 1)
+              .map((id) => nodes[id].label)
+              .join(" → ")}
           </span>
         </div>
       )}

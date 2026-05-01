@@ -12,7 +12,13 @@ import {
   getPostByTranslationKey,
 } from "@/lib/blog";
 import { getDictionary } from "@/i18n/dictionaries";
-import { isLocale, locales, localeToBcp47, localeToOgLocale, type Locale } from "@/i18n/config";
+import {
+  isLocale,
+  locales,
+  localeToBcp47,
+  localeToOgLocale,
+  type Locale,
+} from "@/i18n/config";
 
 const baseMdxComponents = {
   img: ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
@@ -23,7 +29,10 @@ const baseMdxComponents = {
     const language = (className ?? "").match(/language-([\w-]+)/)?.[1];
     if (!language) {
       return (
-        <code className="bg-neutral-100 text-neutral-800 rounded px-1 py-0.5 text-sm font-mono" {...props}>
+        <code
+          className="bg-neutral-100 text-neutral-800 rounded px-1 py-0.5 text-sm font-mono"
+          {...props}
+        >
           {children}
         </code>
       );
@@ -33,7 +42,11 @@ const baseMdxComponents = {
         style={oneLight}
         language={language}
         PreTag="div"
-        customStyle={{ borderRadius: "6px", fontSize: "0.875rem", marginBottom: "1.25rem" }}
+        customStyle={{
+          borderRadius: "6px",
+          fontSize: "0.875rem",
+          marginBottom: "1.25rem",
+        }}
       >
         {String(children).replace(/\n$/, "")}
       </SyntaxHighlighter>
@@ -48,10 +61,16 @@ const baseMdxComponents = {
     <thead className="border-b border-neutral-300" {...props} />
   ),
   th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (
-    <th className="px-4 py-2 text-left font-semibold text-neutral-700 border-b border-neutral-300" {...props} />
+    <th
+      className="px-4 py-2 text-left font-semibold text-neutral-700 border-b border-neutral-300"
+      {...props}
+    />
   ),
   td: (props: React.TdHTMLAttributes<HTMLTableCellElement>) => (
-    <td className="px-4 py-2 border-b border-neutral-200 text-neutral-700" {...props} />
+    <td
+      className="px-4 py-2 border-b border-neutral-200 text-neutral-700"
+      {...props}
+    />
   ),
   tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr className="hover:bg-neutral-50 transition-colors" {...props} />
@@ -61,9 +80,17 @@ const baseMdxComponents = {
 function getPostAlternates(post: { slug: string; translationKey: string }) {
   return Object.fromEntries(
     locales.map((locale) => {
-      const translatedPost = getPostByTranslationKey(post.translationKey, locale);
-      return [locale, translatedPost ? `/${locale}/blog/${translatedPost.slug}` : `/${locale}/blog`];
-    }),
+      const translatedPost = getPostByTranslationKey(
+        post.translationKey,
+        locale
+      );
+      return [
+        locale,
+        translatedPost
+          ? `/${locale}/blog/${translatedPost.slug}`
+          : `/${locale}/blog`,
+      ];
+    })
   ) as Record<Locale, string>;
 }
 
@@ -93,8 +120,7 @@ export async function generateMetadata({
     description: post.excerpt || dictionary.blog.readPost(post.title),
     openGraph: {
       title: post.title,
-      description:
-        post.excerpt || dictionary.blog.readPost(post.title),
+      description: post.excerpt || dictionary.blog.readPost(post.title),
       type: "article",
       url: `/${locale}/blog/${slug}`,
       publishedTime: post.date,
@@ -104,8 +130,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary",
       title: post.title,
-      description:
-        post.excerpt || dictionary.blog.readPost(post.title),
+      description: post.excerpt || dictionary.blog.readPost(post.title),
     },
     alternates: {
       canonical: `/${locale}/blog/${slug}`,
@@ -116,7 +141,7 @@ export async function generateMetadata({
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
-    getAllSlugs(locale).map((slug) => ({ locale, slug })),
+    getAllSlugs(locale).map((slug) => ({ locale, slug }))
   );
 }
 

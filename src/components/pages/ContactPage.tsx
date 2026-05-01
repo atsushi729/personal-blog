@@ -7,17 +7,38 @@ export default function ContactPage({ locale }: { locale: Locale }) {
 
   return (
     <article className="prose reveal-sequence font-serif">
-      <h1 className="reveal-item" style={{ "--enter-delay": "0ms" } as CSSProperties}>{content.title}</h1>
+      <h1
+        className="reveal-item"
+        style={{ "--enter-delay": "0ms" } as CSSProperties}
+      >
+        {content.title}
+      </h1>
 
-      <p className="reveal-item" style={{ "--enter-delay": "90ms" } as CSSProperties}>
+      <p
+        className="reveal-item"
+        style={{ "--enter-delay": "90ms" } as CSSProperties}
+      >
         {content.intro}
       </p>
 
-      <h2 className="reveal-item" style={{ "--enter-delay": "180ms" } as CSSProperties}>{content.getInTouch}</h2>
+      <h2
+        className="reveal-item"
+        style={{ "--enter-delay": "180ms" } as CSSProperties}
+      >
+        {content.getInTouch}
+      </h2>
 
-      <p className="reveal-item" style={{ "--enter-delay": "270ms" } as CSSProperties}>{content.bestWays}</p>
+      <p
+        className="reveal-item"
+        style={{ "--enter-delay": "270ms" } as CSSProperties}
+      >
+        {content.bestWays}
+      </p>
 
-      <ul className="reveal-item space-y-3 list-none pl-0" style={{ "--enter-delay": "360ms" } as CSSProperties}>
+      <ul
+        className="reveal-item space-y-3 list-none pl-0"
+        style={{ "--enter-delay": "360ms" } as CSSProperties}
+      >
         <li>
           <a href="mailto:dtianshan7@gmail.com">dtianshan7@gmail.com</a>
           <span className="text-neutral-500 ml-2">— {content.general}</span>
@@ -30,9 +51,7 @@ export default function ContactPage({ locale }: { locale: Locale }) {
           >
             Twitter / X
           </a>
-          <span className="text-neutral-500 ml-2">
-            — {content.quick}
-          </span>
+          <span className="text-neutral-500 ml-2">— {content.quick}</span>
         </li>
         <li>
           <a
@@ -58,9 +77,17 @@ export default function ContactPage({ locale }: { locale: Locale }) {
         </li>
       </ul>
 
-      <h2 className="reveal-item" style={{ "--enter-delay": "450ms" } as CSSProperties}>{content.responseTime}</h2>
+      <h2
+        className="reveal-item"
+        style={{ "--enter-delay": "450ms" } as CSSProperties}
+      >
+        {content.responseTime}
+      </h2>
 
-      <p className="reveal-item" style={{ "--enter-delay": "540ms" } as CSSProperties}>
+      <p
+        className="reveal-item"
+        style={{ "--enter-delay": "540ms" } as CSSProperties}
+      >
         {content.response}
       </p>
     </article>
