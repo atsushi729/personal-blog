@@ -1,45 +1,58 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { locales } from "@/i18n/config";
 
 export const dynamic = "force-static";
 
 const siteUrl = "https://atsushi-blog.pages.dev";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getAllPosts();
+  const now = new Date();
 
-  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${siteUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  const localizedStaticEntries: MetadataRoute.Sitemap = locales.flatMap((locale) => [
+    {
+      url: `${siteUrl}/${locale}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 1,
+    },
+    {
+      url: `${siteUrl}/${locale}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/${locale}/projects`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    },
+    {
+      url: `${siteUrl}/${locale}/contact`,
+      lastModified: now,
+      changeFrequency: "yearly" as const,
+      priority: 0.5,
+    },
+  ]);
+
+  const blogEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    getAllPosts(locale).map((post) => ({
+      url: `${siteUrl}/${locale}/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  );
 
   return [
     {
       url: siteUrl,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 1,
     },
-    {
-      url: `${siteUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/projects`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${siteUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
+    ...localizedStaticEntries,
     ...blogEntries,
   ];
 }

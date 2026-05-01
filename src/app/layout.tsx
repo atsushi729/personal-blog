@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navigation from "@/components/Navigation";
 
 const siteUrl = "https://atsushi-blog.pages.dev";
 
@@ -21,7 +20,11 @@ export const metadata: Metadata = {
     creator: "@Hatakey2Atsushi",
   },
   alternates: {
-    canonical: "/",
+    canonical: "/en",
+    languages: {
+      en: "/en",
+      ja: "/ja",
+    },
   },
 };
 
@@ -34,7 +37,6 @@ export default function RootLayout({
     <html lang="en">
       <body className="min-h-screen bg-white">
         <main className="max-w-xl mx-auto px-6 py-16">
-          <Navigation />
           {children}
         </main>
       </body>

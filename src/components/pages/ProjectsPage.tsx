@@ -1,18 +1,6 @@
-import type { Metadata } from "next";
 import type { CSSProperties } from "react";
-
-export const metadata: Metadata = {
-  title: "Projects",
-  description: "A selection of projects by Atsushi Hatakeyama — experiments, tools, and things built with Next.js, TypeScript, and more.",
-  openGraph: {
-    title: "Projects | Atsushi Hatakeyama",
-    description: "A selection of projects by Atsushi Hatakeyama — experiments, tools, and things built with Next.js, TypeScript, and more.",
-    url: "/projects",
-  },
-  alternates: {
-    canonical: "/projects",
-  },
-};
+import type { Locale } from "@/i18n/config";
+import { projectsContent } from "@/i18n/pages";
 
 interface Project {
   title: string;
@@ -53,14 +41,17 @@ const projects: Project[] = [
   },
 ];
 
-export default function Projects() {
+export default function ProjectsPage({ locale }: { locale: Locale }) {
+  const content = projectsContent[locale];
+
   return (
     <div className="reveal-sequence font-serif">
-      <h1 className="reveal-item text-3xl font-normal text-neutral-800 mb-6" style={{ "--enter-delay": "0ms" } as CSSProperties}>Projects</h1>
+      <h1 className="reveal-item text-3xl font-normal text-neutral-800 mb-6" style={{ "--enter-delay": "0ms" } as CSSProperties}>
+        {content.title}
+      </h1>
 
       <p className="reveal-item text-neutral-800 mb-12" style={{ "--enter-delay": "90ms" } as CSSProperties}>
-        A selection of projects I&apos;ve worked on. Some are experiments,
-        others are tools I use regularly.
+        {content.intro}
       </p>
 
       <div className="space-y-10">
@@ -88,7 +79,7 @@ export default function Projects() {
                   rel="noopener noreferrer"
                   className="link-underline text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors"
                 >
-                  View project &rarr;
+                  {content.viewProject} &rarr;
                 </a>
               )}
               {project.github && (

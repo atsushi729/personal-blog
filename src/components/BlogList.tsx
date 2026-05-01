@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import type { BlogPost } from "@/lib/blog";
+import type { Locale } from "@/i18n/config";
 
 interface Props {
   posts: BlogPost[];
+  locale: Locale;
 }
 
-export default function BlogList({ posts }: Props) {
+export default function BlogList({ posts, locale }: Props) {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
 
   // Group by year, keeping order
@@ -52,7 +54,7 @@ export default function BlogList({ posts }: Props) {
             }
           >
             <Link
-              href={`/blog/${post.slug}`}
+              href={`/${locale}/blog/${post.slug}`}
               className="writing-row"
               style={{
                 opacity: isDimmed ? 0.35 : 1,

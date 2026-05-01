@@ -6,7 +6,13 @@ import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { blogComponentRegistry } from "@/components/blog/registry";
-import { getPostBySlug, getAllSlugs } from "@/lib/blog";
+import {
+  getAllSlugs,
+  getPostBySlug,
+  getPostByTranslationKey,
+} from "@/lib/blog";
+import { getDictionary } from "@/i18n/dictionaries";
+import { isLocale, locales, localeToBcp47, localeToOgLocale, type Locale } from "@/i18n/config";
 
 const baseMdxComponents = {
   img: ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
@@ -52,54 +58,82 @@ const baseMdxComponents = {
   ),
 };
 
+function getPostAlternates(post: { slug: string; translationKey: string }) {
+  return Object.fromEntries(
+    locales.map((locale) => {
+      const translatedPost = getPostByTranslationKey(post.translationKey, locale);
+      return [locale, translatedPost ? `/${locale}/blog/${translatedPost.slug}` : `/${locale}/blog`];
+    }),
+  ) as Record<Locale, string>;
+}
+
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { locale: localeParam, slug } = await params;
+
+  if (!isLocale(localeParam)) {
+    return { title: "Post Not Found" };
+  }
+
+  const locale: Locale = localeParam;
+  const dictionary = getDictionary(locale);
+  const post = getPostBySlug(slug, locale);
 
   if (!post) {
     return { title: "Post Not Found" };
   }
 
+  const alternates = getPostAlternates(post);
+
   return {
     title: post.title,
-    description: post.excerpt || `Read "${post.title}" by Atsushi Hatakeyama.`,
+    description: post.excerpt || dictionary.blog.readPost(post.title),
     openGraph: {
       title: post.title,
       description:
-        post.excerpt || `Read "${post.title}" by Atsushi Hatakeyama.`,
+        post.excerpt || dictionary.blog.readPost(post.title),
       type: "article",
-      url: `/blog/${slug}`,
+      url: `/${locale}/blog/${slug}`,
       publishedTime: post.date,
       authors: ["Atsushi Hatakeyama"],
+      locale: localeToOgLocale[locale],
     },
     twitter: {
       card: "summary",
       title: post.title,
       description:
-        post.excerpt || `Read "${post.title}" by Atsushi Hatakeyama.`,
+        post.excerpt || dictionary.blog.readPost(post.title),
     },
     alternates: {
-      canonical: `/blog/${slug}`,
+      canonical: `/${locale}/blog/${slug}`,
+      languages: alternates,
     },
   };
 }
 
 export function generateStaticParams() {
-  const slugs = getAllSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return locales.flatMap((locale) =>
+    getAllSlugs(locale).map((slug) => ({ locale, slug })),
+  );
 }
 
 export default async function BlogPost({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { locale: localeParam, slug } = await params;
+
+  if (!isLocale(localeParam)) {
+    notFound();
+  }
+
+  const locale: Locale = localeParam;
+  const dictionary = getDictionary(locale);
+  const post = getPostBySlug(slug, locale);
 
   if (!post) {
     notFound();
@@ -113,10 +147,10 @@ export default async function BlogPost({
   return (
     <article className="font-serif">
       <Link
-        href="/blog"
+        href={`/${locale}/blog`}
         className="inline-flex items-center gap-1 text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors mb-8"
       >
-        &larr; Back to blog
+        &larr; {dictionary.blog.back}
       </Link>
 
       <header className="mb-8">
@@ -124,7 +158,7 @@ export default async function BlogPost({
           {post.title}
         </h1>
         <time className="text-sm font-sans text-neutral-500">
-          {new Date(post.date).toLocaleDateString("en-US", {
+          {new Date(post.date).toLocaleDateString(localeToBcp47[locale], {
             year: "numeric",
             month: "long",
             day: "numeric",

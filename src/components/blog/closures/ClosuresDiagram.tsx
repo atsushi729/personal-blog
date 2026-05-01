@@ -78,7 +78,7 @@ export function ClosuresDiagram() {
 
         <text x="36" y="480" dominantBaseline="central" fill="#3D3D3A" fontSize="12">Key point vs Python:</text>
         <rect x="36" y="492" width="254" height="32" rx="6" fill="#D1FAE5" stroke="#059669" strokeWidth="0.5"/>
-        <text x="163" y="508" textAnchor="middle" dominantBaseline="central" fill="#065F46" fontSize="14" fontWeight="500">No "nonlocal" needed</text>
+        <text x="163" y="508" textAnchor="middle" dominantBaseline="central" fill="#065F46" fontSize="14" fontWeight="500">{"No \"nonlocal\" needed"}</text>
 
         <text x="36" y="542" dominantBaseline="central" fill="#3D3D3A" fontSize="12">JS closures capture outer</text>
         <text x="36" y="560" dominantBaseline="central" fill="#3D3D3A" fontSize="12">{"variables by reference →"}</text>
