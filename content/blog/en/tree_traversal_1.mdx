@@ -1,0 +1,51 @@
+---
+title: "Tree Traversal Part 1: Overview"
+date: "2026-04-19"
+locale: en
+translationKey: tree_traversal_1
+excerpt: "Learn BFS and DFS with interactive demos"
+---
+
+## Overview
+
+Tree traversal means visiting every node in a tree-shaped data structure exactly once according to a specific rule.
+Unlike linear data structures such as lists and arrays, trees have a hierarchical structure, and a single node can have multiple child nodes. Because of that, several traversal patterns can be defined depending on the root, order, and timing of visits.
+
+There are two major algorithms for traversing tree structures: BFS, or breadth-first search, and DFS, or depth-first search.
+
+<TreeTraversalDiagram />
+
+## BFS (Breadth-First Search)
+
+BFS uses a queue and visits all nodes at the same depth before moving to the next depth.
+
+```
+Visit order: A -> B -> C -> D -> E -> F -> G
+```
+
+It is well suited for problems that require the shortest path, such as maze solving.
+
+## DFS (Depth-First Search)
+
+DFS uses a stack, or recursion, and follows a path as deeply as possible before backtracking. There are three common visit timings.
+
+- **Pre-order**: self -> left -> right
+- **In-order**: left -> self -> right, often used to output a binary search tree in ascending order
+- **Post-order**: left -> right -> self, useful for tasks such as aggregating file sizes
+
+<TreeTraversalOrders />
+
+## Complexity
+
+If `V` is the number of nodes, `E` is the number of edges, and `H` is the height of the tree, both BFS and DFS have a time complexity of O(V + E). Their space complexity differs: BFS is O(V), while DFS is O(H).
+
+| Algorithm | Time Complexity | Space Complexity |
+| --------- | --------------- | ---------------- |
+| BFS | O(V + E) | O(V) |
+| DFS | O(V + E) | O(H), where H is the height of the tree |
+
+## Interactive Demo
+
+Choose an algorithm and press the "Next" button to see the order in which nodes are visited step by step.
+
+<TreeTraversalDemo />

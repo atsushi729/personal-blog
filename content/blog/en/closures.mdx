@@ -1,0 +1,111 @@
+---
+title: Closures
+date: 2026-04-29
+locale: en
+translationKey: closures
+excerpt: Closures allow functions to retain access to their defining scope. This post explains the concept, purpose, and practical use cases including encapsulation, function factories, and memoization.
+---
+
+## Overview
+
+A closure is a mechanism where a function keeps access to the scope, or lexical environment, in which it was defined.
+
+Normally, variables inside a function scope can be garbage-collected after the function finishes. However, if an inner function references variables from an outer scope, those variables are kept alive instead of being discarded.
+
+<ClosuresDiagram />
+
+## Purpose
+
+The purpose of closures is to give functions state and scope. From a design perspective, this can be summarized in four points:
+
+1. Preserving state
+2. Encapsulation
+3. Function customization
+4. Keeping context in asynchronous code and callbacks
+
+## Use Cases
+
+Closures can be applied in several practical situations.
+
+### 1. Private Variables (Encapsulation)
+
+Closures can express something similar to private fields in object-oriented programming. They prevent private variables from being accessed directly from the outside, which improves state safety and maintainability.
+
+```jsx
+function createUser(name) {
+  let _name = name; // private
+
+  return {
+    getName() {
+      return _name;
+    },
+    setName(newName) {
+      _name = newName;
+    },
+  };
+}
+
+const user = createUser("Alice");
+
+console.log(user.getName()); // Alice
+user.setName("Bob");
+console.log(user.getName()); // Bob
+
+console.log(user._name); // undefined (cannot access directly)
+```
+
+### 2. Function Factories
+
+Closures make it possible to create functions that keep configuration inside them. A function created by `createMultiplier(2)` remembers `2` permanently.
+
+```jsx
+function createMultiplier(multiplier) {
+  return function (value) {
+    return value * multiplier;
+  };
+}
+
+const double = createMultiplier(2);
+const triple = createMultiplier(3);
+
+console.log(double(5)); // 10
+console.log(triple(5)); // 15
+```
+
+### 3. Memoization
+
+Closures can give expensive functions a memory. If the same arguments are passed again, the function can skip computation and return a cached result. `useMemo` and lodash's `_.memoize` are based on this kind of pattern internally.
+
+```jsx
+function memoize(fn) {
+  const cache = {};
+
+  return function (...args) {
+    const key = JSON.stringify(args);
+
+    if (cache[key]) {
+      console.log("cache hit");
+      return cache[key];
+    }
+
+    console.log("compute");
+    const result = fn(...args);
+    cache[key] = result;
+    return result;
+  };
+}
+
+function slowAdd(a, b) {
+  return a + b;
+}
+
+const fastAdd = memoize(slowAdd);
+
+console.log(fastAdd(1, 2)); // compute -> 3
+console.log(fastAdd(1, 2)); // cache hit -> 3
+```
+
+## References
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures
+- https://ja.javascript.info/closure

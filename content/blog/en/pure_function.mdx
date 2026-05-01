@@ -1,0 +1,93 @@
+---
+title: Pure Functions
+date: 2026-04-23
+locale: en
+translationKey: pure_function
+excerpt: An introduction to pure functions, their properties, and why they are essential for maintainable and scalable code.
+---
+
+## Overview
+
+A pure function is a function whose output is determined only by its input.
+In other words, it is an idempotent function that always returns the same result when given the same input.
+
+This property can be compared to a very simple machine.
+
+1. Input: the only place where data enters
+2. Engine (function body): calculates using only the input data
+3. Output: the only place where the result is returned
+
+This structure creates a state where the function's output is determined only by its input.
+
+<PureFunctionDiagram />
+
+## Rules of Pure Functions
+
+A pure function has two important properties.
+
+**No side effects**
+
+- Any interaction with the outside world during function execution, other than returning a value, is called a side effect
+- A function with side effects is impure, for example rewriting a global variable or throwing an exception
+
+**Referential transparency**
+
+- Referential transparency means that replacing an expression with its evaluated result does not change the behavior of the entire program
+- Example: replacing `f(x) + f(x)` with `2 * f(x)` is safe
+
+## Sample Code
+
+Pure functions:
+
+```python
+# Pure
+def add(a, b):
+    return a + b
+
+# Pure
+def multiply(x, y):
+    return x * y
+
+# Pure (mathematical)
+def square(n):
+    return n * n
+```
+
+Impure functions:
+
+```python
+# Impure - uses external state
+counter = 0
+def increment():
+    global counter
+    counter += 1
+    return counter
+
+# Impure - side effect (printing)
+def say_hello(name):
+    print(f"Hello, {name}!")   # side effect
+
+# Impure - depends on current time
+import datetime
+def get_current_year():
+    return datetime.datetime.now().year
+
+# Impure - mutates input
+def add_to_list(lst, item):
+    lst.append(item)   # mutates the original list
+    return lst
+```
+
+## Why It Matters
+
+Pure functions are essential for maintainable and extensible implementations.
+
+- **Easier debugging**: the cause of a bug is guaranteed not to be outside the function
+- **Easier testing**: no need to prepare external state or mocks
+- **Easier parallelization**: data races caused by side effects do not occur
+- **Memoization becomes possible**: because the same input always produces the same output, results can be cached
+
+## References
+
+- https://react.dev/learn/keeping-components-pure
+- https://colofabrix.github.io/the-road-to-fp/04_pure_functions.html

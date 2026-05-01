@@ -1,0 +1,52 @@
+---
+title: サプライチェーン攻撃を理解する
+date: 2026-04-03
+locale: ja
+translationKey: supply_chain_attacks
+excerpt: サプライチェーン攻撃の概要、実例、実践的な対策を簡潔に整理します。
+---
+
+## サプライチェーン攻撃とは
+
+サプライチェーン攻撃とは、攻撃者が主たる組織を直接狙うのではなく、ベンダー、委託先、サービスプロバイダーなどの関連組織の脆弱性を悪用するサイバー攻撃です。こうした弱い接点を侵害することで、攻撃者は本来の標的システムへ侵入できます。
+
+パッケージマネージャーの文脈では、攻撃者が特定バージョンのソフトウェアパッケージにマルウェアを混入させることがあります。開発者がその侵害されたバージョンをインストールすると、攻撃が実行されます。典型的な被害としては、APIキーの漏えい、任意コマンドの実行、機密性の高いシステム情報の流出などがあります。
+
+## 実際の事例
+
+サプライチェーン攻撃のリスクを示す代表的な事例はいくつかあります。
+
+- [Trivy](https://www.paloaltonetworks.com/blog/cloud-security/trivy-supply-chain-attack/) が侵害され、CIを実行するだけでSSHキーやクラウドトークンが盗まれる可能性がありました。
+- [LiteLLM](https://www.trendmicro.com/en_us/research/26/c/inside-litellm-supply-chain-compromise.html) は数時間にわたり悪意あるバージョンを配布し、利用者を潜在的な脅威にさらしました。
+- [Atlassian](https://research.checkpoint.com/2021/a-supply-chain-breach-taking-over-an-atlassian-account/) のSSOシステム内で重大な脆弱性が発見され、内部認証システムが攻撃経路になり得ることが示されました。
+- [Axiosにマルウェアが混入した事例](https://socket.dev/blog/axios-npm-package-compromised) では、数時間の間、RAT (Remote Access Trojan) を実行可能なパッケージが配布されました。
+
+## 対策
+
+サプライチェーン攻撃のリスクを下げるには、次のような取り組みが重要です。
+
+### 1. クールダウン戦略（min-release-age）
+
+悪意あるパッケージバージョンは、公開直後に発見され削除されることがよくあります。いくつかの事例では、侵害されたバージョンが数時間以内に対処されています。そのため、最新バージョンを即座に採用しないだけでも、リスクを大きく下げることができます。
+
+クールダウン戦略（[min-release-age](https://github.com/npm/cli/releases/tag/v11.10.0)）は、リリースから一定時間が経過した後でのみインストールを許可する仕組みです。ローカル環境とCI/CDパイプラインの両方で設定できます。
+
+```shell
+# pnpm -> minimumReleaseAge (minutes)
+pnpm config set --location=global minimumReleaseAge 1440
+
+# npm -> min-release-age (days)
+npm install --min-release-age=3
+```
+
+### 2. 認証情報のローテーション
+
+認証情報の定期的なローテーションは重要です。特に侵害が疑われる場合には欠かせません。APIキー、SSH秘密鍵、環境変数のような機密情報は、被害を最小化するために定期的に更新する必要があります。
+
+[Amazon Web Services Secrets Manager](https://docs.aws.amazon.com/ja_jp/secretsmanager/latest/userguide/rotating-secrets.html) のようなサービスは、安全な認証情報ローテーションを自動化する仕組みを提供しています。
+
+## まとめ
+
+名前が示す通り、サプライチェーン攻撃は依存関係の連鎖におけるもっとも弱い部分を悪用します。一つの領域だけを強化しても十分ではありません。組織は、パッケージ、ソフトウェア依存関係、機密情報を継続的に保護する包括的なアプローチを取る必要があります。
+
+最終的には、先回りした多層的なセキュリティ対策こそが、ますます高度化するサプライチェーン上の脅威に対抗するために不可欠です。
