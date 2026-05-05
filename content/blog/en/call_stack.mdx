@@ -1,0 +1,45 @@
+---
+title: Call Stack
+date: 2026-05-04
+locale: en
+translationKey: call_stack
+excerpt: The call stack is a LIFO data structure that tracks the execution order and state of function calls. Each call pushes a stack frame; each return pops it. This post explains the concept, purpose, and mechanics with an interactive diagram.
+---
+
+## Overview
+
+The call stack is a stack data structure (LIFO) used to manage the execution order and state of function calls. The unit of data pushed onto the stack in a single operation is called a **stack frame**.
+
+- When a function is called, a stack frame is **pushed** onto the stack
+- When a function returns, its frame is **popped** off the stack
+- The last function called is the first to finish (LIFO: Last In, First Out)
+- If more space is used than the stack has been allocated, a "stack overflow" error occurs
+
+## Purpose
+
+The purpose of the call stack is to remember **where to return** (the return address) after a subroutine finishes and control is handed back to the caller.
+
+Even when a function calls itself recursively, the return address for each invocation must be stored separately — the call stack handles this automatically.
+
+## How It Works
+
+The interactive diagram below shows how stack frames are pushed and popped as functions call and return.
+
+<CallStackDiagram />
+
+① Calling `main()` pushes the main frame
+
+② `main` calls `calculate()`, pushing the calculate frame
+
+③ `calculate` calls `add(3, 4)`, pushing the add frame
+
+④ `add` returns 7 and exits — the add frame is popped
+
+⑤ `calculate` returns 17 and exits — the calculate frame is popped
+
+⑥ `main` prints 17 and exits — the main frame is popped, leaving the stack empty
+
+## References
+
+- https://developer.mozilla.org/en-US/docs/Glossary/Call_stack
+- https://en.wikipedia.org/wiki/Call_stack
