@@ -105,35 +105,27 @@ const css = `
     .cs-playing .cs-code-calc { animation: cc-calc 10s ease forwards; }
     .cs-playing .cs-code-add  { animation: cc-add  10s ease forwards; }
 
-    /* main: active(0%) → waiting(10%) → active(60%) → idle(70%) */
+    /* main: on stack 0–80%, idle after pop */
     @keyframes cc-main {
       0%        { opacity:1;    }
-      9%        { opacity:1;    }
-      11%       { opacity:0.45; }
-      59%       { opacity:0.45; }
-      61%       { opacity:1;    }
-      69%       { opacity:1;    }
-      71%       { opacity:0.25; }
+      70%       { opacity:1;    }
+      80%       { opacity:0.25; }
       100%      { opacity:0.25; }
     }
-    /* calc: idle → active(10%) → waiting(20%) → active(60%) → idle(70%) */
+    /* calc: on stack 10–70%, idle after pop */
     @keyframes cc-calc {
       0%, 9%    { opacity:0.25; }
       11%       { opacity:1;    }
-      19%       { opacity:1;    }
-      21%       { opacity:0.45; }
-      59%       { opacity:0.45; }
-      61%       { opacity:1;    }
-      69%       { opacity:1;    }
-      71%       { opacity:0.25; }
+      60%       { opacity:1;    }
+      70%       { opacity:0.25; }
       100%      { opacity:0.25; }
     }
-    /* add: idle → active(20%) → idle(52%) */
+    /* add: on stack 20–60%, idle after pop */
     @keyframes cc-add {
       0%, 19%   { opacity:0.25; }
       21%       { opacity:1;    }
       50%       { opacity:1;    }
-      52%       { opacity:0.25; }
+      60%       { opacity:0.25; }
       100%      { opacity:0.25; }
     }
 
@@ -144,30 +136,22 @@ const css = `
 
     @keyframes cl-main {
       0%        { opacity:0.8;  }
-      9%        { opacity:0.8;  }
-      11%       { opacity:0.12; }
-      59%       { opacity:0.12; }
-      61%       { opacity:0.8;  }
-      69%       { opacity:0.8;  }
-      71%       { opacity:0.08; }
+      70%       { opacity:0.8;  }
+      80%       { opacity:0.08; }
       100%      { opacity:0.08; }
     }
     @keyframes cl-calc {
       0%, 9%    { opacity:0.08; }
       11%       { opacity:0.8;  }
-      19%       { opacity:0.8;  }
-      21%       { opacity:0.12; }
-      59%       { opacity:0.12; }
-      61%       { opacity:0.8;  }
-      69%       { opacity:0.8;  }
-      71%       { opacity:0.08; }
+      60%       { opacity:0.8;  }
+      70%       { opacity:0.08; }
       100%      { opacity:0.08; }
     }
     @keyframes cl-add {
       0%, 19%   { opacity:0.08; }
       21%       { opacity:0.8;  }
       50%       { opacity:0.8;  }
-      52%       { opacity:0.08; }
+      60%       { opacity:0.08; }
       100%      { opacity:0.08; }
     }
 `;
