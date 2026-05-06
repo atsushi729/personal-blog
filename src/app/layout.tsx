@@ -11,6 +11,13 @@ export const metadata: Metadata = {
   },
   description:
     "Personal blog and portfolio of Atsushi Hatakeyama — software engineer writing about code, technology, and ideas.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.png", type: "image/png", sizes: "256x256" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     type: "website",
     siteName: "Atsushi Hatakeyama",
