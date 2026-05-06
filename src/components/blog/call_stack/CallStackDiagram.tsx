@@ -21,10 +21,7 @@ import { ReplayButton } from "@/components/ui/ReplayButton";
  *   idle    = not on stack   → opacity 0.25
  */
 
-export function CallStackDiagram() {
-  const { ref, replay } = useAnimatedDiagram("cs-playing");
-
-  const css = `
+const css = `
     /* ── initial hidden state ─────────────────────────────────── */
     .cs-main-frame, .cs-calc-frame, .cs-add-frame,
     .cs-sp-main, .cs-sp-calc, .cs-sp-add,
@@ -173,7 +170,10 @@ export function CallStackDiagram() {
       52%       { opacity:0.08; }
       100%      { opacity:0.08; }
     }
-  `;
+`;
+
+export function CallStackDiagram() {
+  const { ref, replay } = useAnimatedDiagram("cs-playing");
 
   return (
     <div ref={ref} className="not-prose my-8">
@@ -615,66 +615,28 @@ export function CallStackDiagram() {
           </g>
 
           {/* SP arrows */}
-          <g className="cs-sp-add">
-            <line
-              x1="356"
-              y1="182"
-              x2="372"
-              y2="182"
-              stroke="#EF9F27"
-              strokeWidth="1.5"
-              markerEnd="url(#cs-arrow)"
-            />
-            <text
-              x="340"
-              y="186"
-              textAnchor="end"
-              fontSize="12"
-              fill="#BA7517"
-            >
-              SP
-            </text>
-          </g>
-          <g className="cs-sp-calc">
-            <line
-              x1="356"
-              y1="286"
-              x2="372"
-              y2="286"
-              stroke="#EF9F27"
-              strokeWidth="1.5"
-              markerEnd="url(#cs-arrow)"
-            />
-            <text
-              x="340"
-              y="290"
-              textAnchor="end"
-              fontSize="12"
-              fill="#BA7517"
-            >
-              SP
-            </text>
-          </g>
-          <g className="cs-sp-main">
-            <line
-              x1="356"
-              y1="390"
-              x2="372"
-              y2="390"
-              stroke="#EF9F27"
-              strokeWidth="1.5"
-              markerEnd="url(#cs-arrow)"
-            />
-            <text
-              x="340"
-              y="394"
-              textAnchor="end"
-              fontSize="12"
-              fill="#BA7517"
-            >
-              SP
-            </text>
-          </g>
+          {(
+            [
+              { className: "cs-sp-add", y: 182 },
+              { className: "cs-sp-calc", y: 286 },
+              { className: "cs-sp-main", y: 390 },
+            ] as const
+          ).map(({ className, y }) => (
+            <g key={className} className={className}>
+              <line
+                x1="356"
+                y1={y}
+                x2="372"
+                y2={y}
+                stroke="#EF9F27"
+                strokeWidth="1.5"
+                markerEnd="url(#cs-arrow)"
+              />
+              <text x="340" y={y + 4} textAnchor="end" fontSize="12" fill="#BA7517">
+                SP
+              </text>
+            </g>
+          ))}
 
           {/* POP arc */}
           <g className="cs-pop-label">
