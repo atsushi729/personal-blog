@@ -48,7 +48,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
         style={{ "--enter-delay": "720ms" } as CSSProperties}
       >
         {content.closingPrefix}{" "}
-        <Link href={`/${locale}/blog`}>{content.blogLink}</Link>{" "}
+        <Link href={`/${locale}/writing`}>{content.writingLink}</Link>{" "}
         {content.closingMiddle}{" "}
         <Link href={`/${locale}/projects`}>{content.projectsLink}</Link>{" "}
         {content.closingSuffix}

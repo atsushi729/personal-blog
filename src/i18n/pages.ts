@@ -23,7 +23,7 @@ export const aboutContent = {
       },
     ],
     closingPrefix: "Feel free to explore my",
-    blogLink: "blog",
+    writingLink: "writing",
     closingMiddle: "where I share my thoughts, or check out my",
     projectsLink: "projects",
     closingSuffix: "to see what I've been building.",
@@ -50,7 +50,7 @@ export const aboutContent = {
       },
     ],
     closingPrefix: "考えたことは",
-    blogLink: "ブログ",
+    writingLink: "writing",
     closingMiddle: "に、作っているものは",
     projectsLink: "プロジェクト",
     closingSuffix: "にまとめています。",
@@ -73,6 +73,28 @@ export const projectsContent = {
     intro:
       "これまでに作ったプロジェクトの一部です。実験的なものから、日常的に使っているツールまで含めています。",
     viewProject: "プロジェクトを見る",
+  },
+} satisfies Record<Locale, unknown>;
+
+export const writingContent = {
+  en: {
+    title: "Writing",
+    description:
+      "Articles and notes on software, technology, and building things by Atsushi Hatakeyama.",
+    back: "Back to writing",
+    readPost: (title: string) => `Read "${title}" by Atsushi Hatakeyama.`,
+    empty: "No posts yet.",
+    emptyNote: "No notes yet.",
+  },
+  ja: {
+    title: "Writing",
+    description:
+      "ソフトウェア、技術、ものづくりについての Atsushi Hatakeyama の記事と学習記録です。",
+    back: "Writing へ戻る",
+    readPost: (title: string) =>
+      `Atsushi Hatakeyama による「${title}」を読む。`,
+    empty: "まだ投稿がありません。",
+    emptyNote: "まだメモがありません。",
   },
 } satisfies Record<Locale, unknown>;
 

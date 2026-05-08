@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { getAllNotes, noteCategories } from "@/lib/note";
 import { locales } from "@/i18n/config";
 
 export const dynamic = "force-static";
@@ -18,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 1,
       },
       {
-        url: `${siteUrl}/${locale}/blog`,
+        url: `${siteUrl}/${locale}/writing`,
         lastModified: now,
         changeFrequency: "weekly" as const,
         priority: 0.8,
@@ -38,12 +39,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]
   );
 
-  const blogEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+  const articleEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
     getAllPosts(locale).map((post) => ({
-      url: `${siteUrl}/${locale}/blog/${post.slug}`,
+      url: `${siteUrl}/${locale}/writing/${post.slug}`,
       lastModified: new Date(post.date),
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    }))
+  );
+
+  const noteEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    getAllNotes(locale).map((note) => ({
+      url: `${siteUrl}/${locale}/writing/${note.category.segments.join("/")}/${note.slug}`,
+      lastModified: new Date(note.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }))
+  );
+
+  const noteCategoryEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    noteCategories.map((category) => ({
+      url: `${siteUrl}/${locale}/writing/${category.segments.join("/")}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
     }))
   );
 
@@ -55,6 +74,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     ...localizedStaticEntries,
-    ...blogEntries,
+    ...articleEntries,
+    ...noteCategoryEntries,
+    ...noteEntries,
   ];
 }

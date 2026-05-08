@@ -32,7 +32,7 @@ describe("Navigation", () => {
     render(<Navigation locale="en" />);
 
     expect(screen.getByRole("link", { name: "About" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Blog" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Writing" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Projects" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Contact" })).toBeInTheDocument();
   });
@@ -45,9 +45,9 @@ describe("Navigation", () => {
       "href",
       "/en"
     );
-    expect(screen.getByRole("link", { name: "Blog" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Writing" })).toHaveAttribute(
       "href",
-      "/en/blog"
+      "/en/writing"
     );
     expect(screen.getByRole("link", { name: "Projects" })).toHaveAttribute(
       "href",
@@ -60,15 +60,13 @@ describe("Navigation", () => {
   });
 
   it("現在のパスに対応するリンクがアクティブスタイルを持つ", () => {
-    mockUsePathname.mockReturnValue("/en/blog");
+    mockUsePathname.mockReturnValue("/en/writing");
     render(<Navigation locale="en" />);
 
-    const blogLink = screen.getByRole("link", { name: "Blog" });
+    const writingLink = screen.getByRole("link", { name: "Writing" });
     const aboutLink = screen.getByRole("link", { name: "About" });
 
-    // アクティブなリンクは text-neutral-800
-    expect(blogLink.className).toContain("text-neutral-800");
-    // 非アクティブなリンクは text-neutral-500
+    expect(writingLink.className).toContain("text-neutral-800");
     expect(aboutLink.className).toContain("text-neutral-500");
   });
 
@@ -78,5 +76,21 @@ describe("Navigation", () => {
 
     const projectsLink = screen.getByRole("link", { name: "Projects" });
     expect(projectsLink.className).toContain("text-neutral-800");
+  });
+
+  it("/writing/some-post ではWriting リンクがアクティブになる", () => {
+    mockUsePathname.mockReturnValue("/en/writing/some-post");
+    render(<Navigation locale="en" />);
+
+    const writingLink = screen.getByRole("link", { name: "Writing" });
+    expect(writingLink.className).toContain("text-neutral-800");
+  });
+
+  it("/writing/ads/data-structure/tree では Writing リンクがアクティブになる", () => {
+    mockUsePathname.mockReturnValue("/en/writing/ads/data-structure/tree");
+    render(<Navigation locale="en" />);
+
+    const writingLink = screen.getByRole("link", { name: "Writing" });
+    expect(writingLink.className).toContain("text-neutral-800");
   });
 });
