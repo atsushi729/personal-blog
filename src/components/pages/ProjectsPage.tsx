@@ -12,6 +12,13 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "c-daily",
+    description:
+      "A CLI tool to automatically record Claude Code activities for daily Markdown-based reviews.",
+    tech: ["Python", "CLI", "Claude Code"],
+    github: "https://github.com/atsushi729/c-daily",
+  },
+  {
     title: "Portfolio Website",
     description:
       "My personal portfolio website showcasing my work and experience.",
