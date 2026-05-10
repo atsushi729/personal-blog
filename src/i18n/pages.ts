@@ -5,54 +5,54 @@ export const aboutContent = {
     pageTitle: "About",
     title: "Hi, I'm Atsushi Hatakeyama",
     description:
-      "Hi, I'm Atsushi Hatakeyama — a software engineer passionate about building functional and elegant software.",
+      "A personal blog and portfolio by Atsushi Hatakeyama, writing about code, technology, and startups.",
     intro:
-      "Welcome to my personal corner of the internet. I'm a software engineer passionate about building things that make a difference.",
+      "On this site, I write about software development, startups, and things I learn through day-to-day experience. My technical strengths are AI system development, software design, and new business development. The languages I use most are Python and TypeScript.",
     sections: [
       {
         title: "What I do",
-        body: "I spend my time writing code, exploring new technologies, and working on projects that interest me. I believe in building software that is both functional and elegant.",
+        body: "I write code, explore new technologies, and turn projects I care about into real products. I am especially interested in AI product development, contributing to OSS, and building software that is both functional and inspiring.",
       },
       {
-        title: "My approach",
-        body: "I value simplicity and clarity in everything I create. Good software should be easy to understand, maintain, and extend. I strive to write code that future developers (including future me) will appreciate.",
+        title: "What I value",
+        body: "I value simplicity and clarity. I believe good software should be easy to understand, maintain, and extend. More than technology itself, I care about solving real problems, because my way of thinking starts from engineering.",
       },
       {
-        title: "Beyond code",
-        body: "When I'm not coding, you can find me exploring new ideas, reading, or working on side projects. I believe in continuous learning and pushing the boundaries of what's possible.",
+        title: "Other work",
+        body: "Beyond software development, I also work on my own business, finance, and education-related activities.",
       },
     ],
-    closingPrefix: "Feel free to explore my",
-    writingLink: "writing",
-    closingMiddle: "where I share my thoughts, or check out my",
-    projectsLink: "projects",
-    closingSuffix: "to see what I've been building.",
+    closingPrefix: "I collect my thoughts in",
+    writingLink: "Writing",
+    closingMiddle: "and the things I build in",
+    projectsLink: "Projects",
+    closingSuffix: ".",
   },
   ja: {
     pageTitle: "プロフィール",
     title: "こんにちは、Atsushi Hatakeyama です",
     description:
-      "Atsushi Hatakeyama の個人ブログとポートフォリオです。コード、技術、アイデアについて書いています。",
+      "Atsushi Hatakeyama の個人ブログとポートフォリオです。コード、技術、スタートアップについて書いています。",
     intro:
-      "このサイトでは、ソフトウェア開発や技術、日々考えていることについて書いています。",
+      "このサイトでは、ソフトウェア開発やスタートアップなど、日々経験したことについて書いています。ハードスキルとしてはAIシステム開発、設計、新規事業開発に強みを持ちます。得意な言語はPythonとTypeScriptです。",
     sections: [
       {
         title: "やっていること",
-        body: "コードを書き、新しい技術を試し、興味のあるプロジェクトを形にしています。機能的でありながら、扱いやすく美しいソフトウェアを作ることを大切にしています。",
+        body: "コードを書き、新しい技術を試し、興味のあるプロジェクトを形にしています。AIプロダクト開発やOSSへの貢献など、機能的で感動的なソフトウェアを作ることに情熱を注いでいます。",
       },
       {
         title: "大切にしていること",
-        body: "シンプルさと明快さを重視しています。良いソフトウェアは理解しやすく、保守しやすく、拡張しやすいものであるべきだと考えています。",
+        body: "シンプルさと明快さを重視しています。良いソフトウェアは理解しやすく、保守しやすく、拡張しやすいものであるべきだと考えています。技術だけではなく、課題を解決することを重視しています。なぜなら、考え方の起点がエンジニアリングにあるためです。",
       },
       {
-        title: "コードの外側",
-        body: "コードを書いていない時間は、本を読んだり、新しいアイデアを考えたり、個人プロジェクトに取り組んだりしています。",
+        title: "その他活動",
+        body: "ソフトウェア開発の他に自分の事業、ファイナンス、教育の活動を行っています。",
       },
     ],
     closingPrefix: "考えたことは",
-    writingLink: "writing",
+    writingLink: "Writing",
     closingMiddle: "に、作っているものは",
-    projectsLink: "プロジェクト",
+    projectsLink: "Projects",
     closingSuffix: "にまとめています。",
   },
 } satisfies Record<Locale, unknown>;
@@ -61,9 +61,9 @@ export const projectsContent = {
   en: {
     title: "Projects",
     description:
-      "A selection of projects by Atsushi Hatakeyama — experiments, tools, and things built with Next.js, TypeScript, and more.",
+      "A collection of projects, experiments, and tools by Atsushi Hatakeyama.",
     intro:
-      "A selection of projects I've worked on. Some are experiments, others are tools I use regularly.",
+      "A selection of projects I have built, ranging from experiments to tools I use in everyday life.",
     viewProject: "View project",
   },
   ja: {
