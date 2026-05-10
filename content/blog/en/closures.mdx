@@ -12,7 +12,23 @@ A closure is a mechanism where a function keeps access to the scope, or lexical 
 
 Normally, variables inside a function scope can be garbage-collected after the function finishes. However, if an inner function references variables from an outer scope, those variables are kept alive instead of being discarded.
 
+In the example below, when `makeCounter()` is called, the execution context for `makeCounter` is created in memory.
+An `increment` function object is then created, and at that point it captures a reference to `count`. This is where the closure is formed.
+
 <ClosuresDiagram />
+
+## Explanation
+
+Let's look at how closures work in a little more detail.
+Here, we can think about closures in two phases: definition and reference.
+
+First, procedure P is defined by using a closure. At definition time, procedure P also stores a reference to context D.
+In this discussion, a context means a reference `x` such as a variable that holds a specific state, and a context can store multiple pieces of reference information.
+At this point, P's environment, meaning its set of references, can be described as being **closed over by its definition context**.
+
+When P is called from context C, it uses the reference from context D to perform its work.
+
+![Definition and call of a closure](/images/closure.png)
 
 ## Purpose
 
@@ -109,3 +125,4 @@ console.log(fastAdd(1, 2)); // cache hit -> 3
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures
 - https://ja.javascript.info/closure
+- https://webperso.info.ucl.ac.be/~pvr/VanRoyChapter.pdf
