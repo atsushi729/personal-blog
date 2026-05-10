@@ -91,11 +91,21 @@ body {
 }
 
 .prose ul {
-  @apply list-disc list-inside mb-4;
+  @apply list-disc mb-4 pl-6;
+  overflow-x: auto;
 }
 
 .prose ol {
-  @apply list-decimal list-inside mb-4;
+  @apply list-decimal mb-4 pl-6;
+  overflow-x: auto;
+}
+
+.prose li {
+  @apply pl-1;
+}
+
+.prose li a {
+  white-space: nowrap;
 }
 
 .prose a {
