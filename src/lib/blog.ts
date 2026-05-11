@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
+import { getNoteCategory, type NoteCategory } from "@/lib/note";
 
 const blogDirectory = path.join(process.cwd(), "content/blog");
 
@@ -12,6 +13,7 @@ export interface BlogPost {
   title: string;
   date: string;
   excerpt?: string;
+  category?: NoteCategory;
   content: string;
 }
 
@@ -37,6 +39,8 @@ function parseFile(locale: Locale, fileName: string): BlogPost {
     title: data.title || slug,
     date,
     excerpt: data.excerpt || "",
+    category:
+      getNoteCategory(String(data.category || "").split("/")) ?? undefined,
     content,
   };
 }
@@ -66,6 +70,16 @@ export function getPostBySlug(
   } catch {
     return null;
   }
+}
+
+export function getPostsByCategory(
+  segments: string[],
+  locale: Locale = defaultLocale
+): BlogPost[] {
+  const categoryPath = segments.join("/");
+  return getAllPosts(locale).filter(
+    (post) => post.category?.segments.join("/") === categoryPath
+  );
 }
 
 export function getAllSlugs(locale: Locale = defaultLocale): string[] {

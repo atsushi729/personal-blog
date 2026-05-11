@@ -6,7 +6,6 @@ import type { NoteCategory } from "@/lib/note";
 import { formatMonthDay } from "@/lib/utils";
 
 export interface WritingItem {
-  kind: "article" | "note";
   title: string;
   date: string;
   href: string;
@@ -28,9 +27,7 @@ export default function WritingList({
   const [hoveredHref, setHoveredHref] = useState<string | null>(null);
 
   const filtered = filter
-    ? items.filter(
-        (item) => item.kind === "note" && item.categoryKey === filter
-      )
+    ? items.filter((item) => item.categoryKey === filter)
     : items;
 
   let lastYear = "";

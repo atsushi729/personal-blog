@@ -10,15 +10,6 @@ export interface NoteCategory {
   segments: string[];
 }
 
-export interface NoteSection {
-  title: string;
-  groups: Array<{
-    title: string;
-    segments: string[];
-    items: NoteCategory[];
-  }>;
-}
-
 export interface Note {
   slug: string;
   locale: Locale;
@@ -30,60 +21,32 @@ export interface Note {
   category: NoteCategory;
 }
 
-export const noteSections: NoteSection[] = [
+export const noteCategories: NoteCategory[] = [
   {
-    title: "ADS",
-    groups: [
-      {
-        title: "Data Structure",
-        segments: ["ads", "data-structure"],
-        items: [
-          {
-            title: "Tree",
-            segments: ["ads", "data-structure", "tree"],
-          },
-          {
-            title: "Graph",
-            segments: ["ads", "data-structure", "graph"],
-          },
-        ],
-      },
-      {
-        title: "Algorithm",
-        segments: ["ads", "algorithm"],
-        items: [],
-      },
-    ],
+    title: "Software",
+    segments: ["software"],
+  },
+  {
+    title: "Algorithm",
+    segments: ["algorithm"],
+  },
+  {
+    title: "Data Structure",
+    segments: ["data-structure"],
   },
   {
     title: "AI",
-    groups: [
-      {
-        title: "Deep Learning",
-        segments: ["ai", "deep-learning"],
-        items: [],
-      },
-      {
-        title: "Machine Learning",
-        segments: ["ai", "machine-learning"],
-        items: [],
-      },
-      {
-        title: "RAG",
-        segments: ["ai", "rag"],
-        items: [],
-      },
-    ],
+    segments: ["ai"],
+  },
+  {
+    title: "Hardware",
+    segments: ["hardware"],
+  },
+  {
+    title: "Life",
+    segments: ["life"],
   },
 ];
-
-export const noteCategories: NoteCategory[] = noteSections.flatMap((section) =>
-  section.groups.flatMap((group) =>
-    group.items.length > 0
-      ? group.items
-      : [{ title: group.title, segments: group.segments }]
-  )
-);
 
 function sameSegments(a: string[], b: string[]) {
   return (

@@ -14,7 +14,12 @@ import {
   type Locale,
 } from "@/i18n/config";
 import { writingContent } from "@/i18n/pages";
-import { getAllSlugs, getPostBySlug, getPostByTranslationKey } from "@/lib/blog";
+import {
+  getAllSlugs,
+  getPostBySlug,
+  getPostByTranslationKey,
+  getPostsByCategory,
+} from "@/lib/blog";
 import {
   getAllNotePaths,
   getNoteBySlug,
@@ -74,41 +79,41 @@ export async function generateMetadata({
 
   if (segments.length === 1) {
     const post = getPostBySlug(segments[0], locale);
-    if (!post) return { title: "Not Found" };
-
-    const alternates = getPostAlternates(post);
-    return {
-      title: post.title,
-      description: post.excerpt || content.readPost(post.title),
-      openGraph: {
+    if (post) {
+      const alternates = getPostAlternates(post);
+      return {
         title: post.title,
         description: post.excerpt || content.readPost(post.title),
-        type: "article",
-        url: `/${locale}/writing/${segments[0]}`,
-        publishedTime: post.date,
-        authors: ["Atsushi Hatakeyama"],
-        locale: localeToOgLocale[locale],
-      },
-      twitter: {
-        card: "summary",
-        title: post.title,
-        description: post.excerpt || content.readPost(post.title),
-      },
-      alternates: {
-        canonical: `/${locale}/writing/${segments[0]}`,
-        languages: alternates,
-      },
-    };
+        openGraph: {
+          title: post.title,
+          description: post.excerpt || content.readPost(post.title),
+          type: "article",
+          url: `/${locale}/writing/${segments[0]}`,
+          publishedTime: post.date,
+          authors: ["Atsushi Hatakeyama"],
+          locale: localeToOgLocale[locale],
+        },
+        twitter: {
+          card: "summary",
+          title: post.title,
+          description: post.excerpt || content.readPost(post.title),
+        },
+        alternates: {
+          canonical: `/${locale}/writing/${segments[0]}`,
+          languages: alternates,
+        },
+      };
+    }
   }
 
   const category = getNoteCategory(segments);
   if (category) {
     return {
       title: `${category.title} | Writing`,
-      description: `${category.title} notes by Atsushi Hatakeyama.`,
+      description: `${category.title} writing by Atsushi Hatakeyama.`,
       openGraph: {
         title: `${category.title} | Writing | Atsushi Hatakeyama`,
-        description: `${category.title} notes by Atsushi Hatakeyama.`,
+        description: `${category.title} writing by Atsushi Hatakeyama.`,
         url: `/${locale}/writing/${segments.join("/")}`,
         locale: localeToOgLocale[locale],
       },
@@ -168,49 +173,70 @@ export default async function WritingRoute({
 
   if (segments.length === 1) {
     const post = getPostBySlug(segments[0], locale);
-    if (!post) notFound();
+    if (post) {
+      const slugComponents = blogComponentRegistry[segments[0]];
+      const mdxComponents = slugComponents
+        ? { ...baseMdxComponents, ...slugComponents }
+        : baseMdxComponents;
 
-    const slugComponents = blogComponentRegistry[segments[0]];
-    const mdxComponents = slugComponents
-      ? { ...baseMdxComponents, ...slugComponents }
-      : baseMdxComponents;
+      return (
+        <article className="font-serif">
+          <Link
+            href={`/${locale}/writing`}
+            className="mb-8 inline-flex items-center gap-1 font-sans text-sm text-neutral-500 transition-colors hover:text-neutral-800"
+          >
+            &larr; {content.back}
+          </Link>
 
-    return (
-      <article className="font-serif">
-        <Link
-          href={`/${locale}/writing`}
-          className="mb-8 inline-flex items-center gap-1 font-sans text-sm text-neutral-500 transition-colors hover:text-neutral-800"
-        >
-          &larr; {content.back}
-        </Link>
+          <header className="mb-8">
+            {post.category ? (
+              <Link
+                href={`/${locale}/writing/${post.category.segments.join("/")}`}
+                className="mb-2 inline-block font-sans text-sm text-neutral-500 transition-colors hover:text-neutral-800"
+              >
+                {post.category.title}
+              </Link>
+            ) : null}
+            <h1 className="mb-2 text-3xl font-normal text-neutral-800">
+              {post.title}
+            </h1>
+            <time className="font-sans text-sm text-neutral-500">
+              {new Date(post.date).toLocaleDateString(localeToBcp47[locale], {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+          </header>
 
-        <header className="mb-8">
-          <h1 className="mb-2 text-3xl font-normal text-neutral-800">
-            {post.title}
-          </h1>
-          <time className="font-sans text-sm text-neutral-500">
-            {new Date(post.date).toLocaleDateString(localeToBcp47[locale], {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </time>
-        </header>
-
-        <div className="prose prose-neutral max-w-none">
-          <MDXRemote
-            source={post.content}
-            components={mdxComponents}
-            options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
-          />
-        </div>
-      </article>
-    );
+          <div className="prose prose-neutral max-w-none">
+            <MDXRemote
+              source={post.content}
+              components={mdxComponents}
+              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+            />
+          </div>
+        </article>
+      );
+    }
   }
 
   const category = getNoteCategory(segments);
   if (category) {
+    const posts = getPostsByCategory(category.segments, locale);
     const notes = getNotesByCategory(category.segments, locale);
+    const items: WritingItem[] = [
+      ...posts.map((post) => ({
+        title: post.title,
+        date: post.date,
+        href: `/${locale}/writing/${post.slug}`,
+      })),
+      ...notes.map((note) => ({
+        title: note.title,
+        date: note.date,
+        href: `/${locale}/writing/${note.category.segments.join("/")}/${note.slug}`,
+      })),
+    ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     return (
       <article className="font-serif">
@@ -227,18 +253,13 @@ export default async function WritingRoute({
           </h1>
         </header>
 
-        {notes.length === 0 ? (
+        {items.length === 0 ? (
           <p className="font-sans text-sm text-neutral-500">
             {content.emptyNote}
           </p>
         ) : (
           <WritingList
-            items={notes.map((note) => ({
-              kind: "note" as const,
-              title: note.title,
-              date: note.date,
-              href: `/${locale}/writing/${note.category.segments.join("/")}/${note.slug}`,
-            }))}
+            items={items}
             categories={[]}
             emptyLabel={content.emptyNote}
           />

@@ -3,6 +3,7 @@ title: Closures
 date: 2026-04-29
 locale: en
 translationKey: closures
+category: software
 excerpt: Closures allow functions to retain access to their defining scope. This post explains the concept, purpose, and practical use cases including encapsulation, function factories, and memoization.
 ---
 
@@ -20,7 +21,7 @@ An `increment` function object is then created, and at that point it captures a 
 ## Explanation
 
 Let's look at how closures work in a little more detail.
-Here, we can think about closures in two phases: definition and reference.
+Here, we can think about closures in two phases: "Definition" and "Call".
 
 First, procedure P is defined by using a closure. At definition time, procedure P also stores a reference to context D.
 In this discussion, a context means a reference `x` such as a variable that holds a specific state, and a context can store multiple pieces of reference information.

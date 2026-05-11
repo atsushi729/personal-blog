@@ -1,4 +1,9 @@
-import { getAllPosts, getPostBySlug, getAllSlugs } from "../blog";
+import {
+  getAllPosts,
+  getPostBySlug,
+  getAllSlugs,
+  getPostsByCategory,
+} from "../blog";
 
 jest.mock("fs");
 const fs = jest.requireMock("fs") as jest.Mocked<typeof import("fs")>;
@@ -8,6 +13,7 @@ jest.spyOn(process, "cwd").mockReturnValue("/mock");
 const POST_A = `---
 title: Post A
 date: 2024-03-15
+category: software
 excerpt: Excerpt of Post A
 ---
 # Post A
@@ -80,6 +86,10 @@ describe("getAllPosts", () => {
     expect(post.title).toBe("Post A");
     expect(post.date).toBe("2024-03-15");
     expect(post.excerpt).toBe("Excerpt of Post A");
+    expect(post.category).toEqual({
+      title: "Software",
+      segments: ["software"],
+    });
     expect(post.content).toContain("Content of post A.");
   });
 
@@ -91,6 +101,23 @@ describe("getAllPosts", () => {
 
     const [post] = getAllPosts();
     expect(post.title).toBe("my-post");
+  });
+});
+
+describe("getPostsByCategory", () => {
+  it("カテゴリに対応する投稿を返す", () => {
+    fs.readdirSync.mockReturnValue([
+      "post-a.mdx",
+      "post-b.mdx",
+    ] as unknown as ReturnType<typeof fs.readdirSync>);
+    fs.readFileSync.mockImplementation((filePath) => {
+      if (String(filePath).includes("post-a.mdx")) return POST_A;
+      if (String(filePath).includes("post-b.mdx")) return POST_B;
+      return "";
+    });
+
+    const posts = getPostsByCategory(["software"]);
+    expect(posts.map((post) => post.slug)).toEqual(["post-a"]);
   });
 });
 

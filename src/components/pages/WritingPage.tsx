@@ -12,15 +12,14 @@ export default function WritingPage({ locale }: { locale: Locale }) {
 
   const items: WritingItem[] = [
     ...posts.map((post) => ({
-      kind: "article" as const,
       title: post.title,
       date: post.date,
       href: `/${locale}/writing/${post.slug}`,
+      categoryKey: post.category?.segments.join("/"),
     })),
     ...notes.map((note) => {
       const categoryPath = note.category.segments.join("/");
       return {
-        kind: "note" as const,
         title: note.title,
         date: note.date,
         href: `/${locale}/writing/${categoryPath}/${note.slug}`,

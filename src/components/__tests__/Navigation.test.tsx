@@ -86,8 +86,8 @@ describe("Navigation", () => {
     expect(writingLink.className).toContain("text-neutral-800");
   });
 
-  it("/writing/ads/data-structure/tree では Writing リンクがアクティブになる", () => {
-    mockUsePathname.mockReturnValue("/en/writing/ads/data-structure/tree");
+  it("/writing/data-structure では Writing リンクがアクティブになる", () => {
+    mockUsePathname.mockReturnValue("/en/writing/data-structure");
     render(<Navigation locale="en" />);
 
     const writingLink = screen.getByRole("link", { name: "Writing" });
