@@ -3,15 +3,14 @@
 Place MDX notes under the locale and category path.
 
 ```text
-content/note/en/data-structure/example.mdx
-content/note/ja/data-structure/example.mdx
+content/note/en/algorithm-data-structure/example.mdx
+content/note/ja/algorithm-data-structure/example.mdx
 ```
 
 Supported category paths:
 
 - `software`
-- `algorithm`
-- `data-structure`
+- `algorithm-data-structure`
 - `ai`
 - `hardware`
 - `life`

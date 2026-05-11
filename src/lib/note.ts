@@ -27,12 +27,8 @@ export const noteCategories: NoteCategory[] = [
     segments: ["software"],
   },
   {
-    title: "Algorithm",
-    segments: ["algorithm"],
-  },
-  {
-    title: "Data Structure",
-    segments: ["data-structure"],
+    title: "Algorithm & Data Structure",
+    segments: ["algorithm-data-structure"],
   },
   {
     title: "AI",

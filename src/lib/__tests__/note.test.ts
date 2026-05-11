@@ -27,11 +27,11 @@ beforeEach(() => {
 
 describe("getNoteCategory", () => {
   it("カテゴリパスから Note カテゴリを返す", () => {
-    const category = getNoteCategory(["data-structure"]);
+    const category = getNoteCategory(["algorithm-data-structure"]);
 
     expect(category).toEqual({
-      title: "Data Structure",
-      segments: ["data-structure"],
+      title: "Algorithm & Data Structure",
+      segments: ["algorithm-data-structure"],
     });
   });
 
@@ -46,7 +46,7 @@ describe("getNotesByCategory", () => {
       throw new Error("ENOENT");
     });
 
-    expect(getNotesByCategory(["data-structure"])).toEqual([]);
+    expect(getNotesByCategory(["algorithm-data-structure"])).toEqual([]);
   });
 
   it("カテゴリ配下の .mdx ファイルのみを読み込む", () => {
@@ -56,19 +56,19 @@ describe("getNotesByCategory", () => {
     ] as unknown as ReturnType<typeof fs.readdirSync>);
     fs.readFileSync.mockReturnValue(TREE_NOTE);
 
-    const notes = getNotesByCategory(["data-structure"]);
+    const notes = getNotesByCategory(["algorithm-data-structure"]);
 
     expect(notes).toHaveLength(1);
     expect(notes[0]).toMatchObject({
       slug: "tree-basics",
       title: "Tree Basics",
       category: {
-        title: "Data Structure",
-        segments: ["data-structure"],
+        title: "Algorithm & Data Structure",
+        segments: ["algorithm-data-structure"],
       },
     });
     expect(String(fs.readFileSync.mock.calls[0][0])).toContain(
-      "/content/note/en/data-structure/tree-basics.mdx"
+      "/content/note/en/algorithm-data-structure/tree-basics.mdx"
     );
   });
 });
@@ -78,7 +78,7 @@ describe("getNoteBySlug", () => {
     fs.readFileSync.mockReturnValue(TREE_NOTE);
 
     const note = getNoteBySlug(
-      ["data-structure"],
+      ["algorithm-data-structure"],
       "tree-basics"
     );
 
@@ -91,7 +91,7 @@ describe("getNoteBySlug", () => {
 describe("getAllNotes", () => {
   it("全カテゴリのメモを集約する", () => {
     fs.readdirSync.mockImplementation((dirPath) => {
-      if (String(dirPath).endsWith("/data-structure")) {
+      if (String(dirPath).endsWith("/algorithm-data-structure")) {
         return ["tree-basics.mdx"] as unknown as ReturnType<
           typeof fs.readdirSync
         >;
@@ -111,7 +111,7 @@ describe("getAllNotes", () => {
 describe("getAllNotePaths", () => {
   it("カテゴリパスとメモ詳細パスを返す", () => {
     fs.readdirSync.mockImplementation((dirPath) => {
-      if (String(dirPath).endsWith("/data-structure")) {
+      if (String(dirPath).endsWith("/algorithm-data-structure")) {
         return ["tree-basics.mdx"] as unknown as ReturnType<
           typeof fs.readdirSync
         >;
@@ -122,7 +122,7 @@ describe("getAllNotePaths", () => {
     fs.readFileSync.mockReturnValue(TREE_NOTE);
 
     const paths = getAllNotePaths();
-    expect(paths).toContainEqual(["data-structure"]);
-    expect(paths).toContainEqual(["data-structure", "tree-basics"]);
+    expect(paths).toContainEqual(["algorithm-data-structure"]);
+    expect(paths).toContainEqual(["algorithm-data-structure", "tree-basics"]);
   });
 });
