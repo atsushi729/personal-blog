@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "p=$(npm run format:check 2>&1); pe=$?; l=$(npm run lint 2>&1); le=$?; p_label=$([ $pe -eq 0 ] && echo 'PASS' || echo 'FAIL'); l_label=$([ $le -eq 0 ] && echo 'PASS' || echo 'FAIL'); jq -cn --arg msg \"Prettier: $p_label | ESLint: $l_label\" '{systemMessage: $msg}'",
+            "timeout": 60,
+            "statusMessage": "Running Prettier & ESLint checks..."
+          }
+        ]
+      }
+    ]
+  }
+}
