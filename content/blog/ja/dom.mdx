@@ -1,0 +1,128 @@
+---
+title: DOM（Document Object Model）
+date: 2026-05-24
+locale: ja
+translationKey: dom
+category: software
+excerpt: DOMとは、HTMLやXMLドキュメントをノードツリーとして表現し、JavaScriptなどのプログラムから取得・変更・追加・削除できるようにするインターフェースである。
+---
+
+## 概要
+
+DOM（Document Object Model）とは、HTML や XML ドキュメントを**ノードツリー**と呼ばれる階層的なオブジェクト構造として表現し、プログラムから操作できるようにするためのインターフェース仕様です。
+
+ブラウザは HTML を単なる文字列として表示しているわけではありません。受け取った HTML を解析し、`document` を起点とするツリー構造に変換します。JavaScript はこの DOM ツリーを介して、特定の要素を取得したり、テキストを書き換えたり、新しい要素を追加したり、不要な要素を削除したりできます。
+
+たとえば、`document.querySelector("h1")` で `h1` 要素を取得し、`.textContent` を変更すれば、ページ全体を再読み込みせずに表示内容を即座に書き換えられます。
+
+```js
+const heading = document.querySelector("h1");
+heading.textContent = "Hello, DOM";
+```
+
+DOM があることで、Web ページは静的な文書から、ユーザー操作に応じて変化するインタラクティブなアプリケーションへと発展できました。
+
+## 歴史
+
+Web 黎明期の HTML は、主に静的な文書を表現するためのフォーマットでした。ブラウザは HTML を読み取り、画面に表示する閲覧ツールとしての役割が中心でした。
+
+しかし、1995 年に Brendan Eich によって JavaScript が開発され、Netscape Navigator に搭載されると、「スクリプトから HTML を動的に操作したい」という需要が急速に高まりました。フォームの入力チェック、画像の切り替え、メニューの開閉など、ページを再読み込みせずに画面を変化させる仕組みが求められるようになったのです。
+
+当時は Microsoft の Internet Explorer と Netscape Navigator の競争、いわゆる Browser Wars の影響もあり、ブラウザごとに独自の DOM 実装が存在していました。同じ処理を書いてもブラウザによって動いたり動かなかったりするため、開発者は多くの分岐コードを書く必要がありました。
+
+その後、W3C による DOM 仕様の標準化が進み、さらに現在では WHATWG の DOM Standard が Living Standard として継続的に更新されています。これにより、ブラウザやプログラミング言語の違いを越えて、ドキュメントを一貫した API で操作できるようになりました。
+
+## 仕組み
+
+ブラウザが HTML ドキュメントを読み込むと、HTML パーサーはテキストをタグやテキストなどの意味単位に分解し、それらをもとに DOM ツリーを構築します。
+
+このツリーは**ノード（Node）**と呼ばれる単位で構成されます。代表的なノードには、次のようなものがあります。
+
+| ノードの種類 | 例                        | 説明                      |
+| ------------ | ------------------------- | ------------------------- |
+| Document     | `document`                | DOM ツリー全体の入口      |
+| Element      | `html`, `body`, `h1`, `p` | HTML タグに対応するノード |
+| Text         | `Header`, `Paragraph`     | 要素内のテキスト          |
+| Attribute    | `lang="en"`               | 要素に付与される属性      |
+
+たとえば、次の HTML があるとします。
+
+```html
+<html lang="en">
+  <head>
+    <title>My Document</title>
+  </head>
+  <body>
+    <h1>Header</h1>
+    <p>Paragraph</p>
+  </body>
+</html>
+```
+
+この HTML は、概念的には次のようなツリーとして扱われます。
+
+```text
+document
+└── html
+    ├── head
+    │   └── title
+    │       └── "My Document"
+    └── body
+        ├── h1
+        │   └── "Header"
+        └── p
+            └── "Paragraph"
+```
+
+ツリー構造になっているため、JavaScript はあるノードを起点にして、親・子・兄弟といった関係をたどることができます。
+
+```js
+const paragraph = document.querySelector("p");
+
+paragraph.parentElement; // body
+paragraph.previousElementSibling; // h1
+paragraph.textContent = "Updated paragraph";
+```
+
+DOM 操作とは、このツリーに対して API 経由で読み書きすることだと考えると理解しやすくなります。
+
+## DOM が作られる流れ
+
+ブラウザ上で DOM が利用可能になるまでの流れは、おおまかに次の通りです。
+
+1. クライアントがサーバーにリクエストを送る
+
+ユーザーがブラウザに URL を入力したり、リンクをクリックしたりすると、ブラウザは必要に応じて DNS 解決を行い、対象サーバーへ HTTP リクエストを送信します。
+
+2. サーバーが HTML を返す
+
+サーバーはリクエストに対応する HTML ドキュメントを HTTP レスポンスとして返します。この時点での HTML は、まだ単なるテキストデータです。
+
+3. ブラウザが HTML を解析する
+
+ブラウザは HTML を上から順に読み込み、パーサーが開始タグ、終了タグ、テキストなどをトークンとして識別します。この過程で CSS、JavaScript、画像などの外部リソースへの参照が見つかった場合、追加のリクエストも並行して行われます。
+
+4. ブラウザエンジンが DOM ツリーを作る
+
+パース結果をもとに、ブラウザエンジンはノードを生成しながらツリー構造を組み上げます。DOM ツリーの構築が完了すると、`DOMContentLoaded` イベントが発火します。この時点で JavaScript からドキュメント構造にアクセスできる状態になります。
+
+なお、`DOMContentLoaded` は DOM の構築完了を表すイベントであり、画像やスタイルシートなどすべての外部リソースの読み込み完了を意味するわけではありません。ページ全体のリソース読み込み完了は、通常 `load` イベントで扱います。
+
+## まとめ
+
+DOM は、HTML や XML をプログラムから扱えるオブジェクト構造に変換するための共通インターフェースです。
+
+HTML はサーバーから届いた時点ではテキストですが、ブラウザによって解析されることで `document` を起点とするノードツリーになります。JavaScript はこのツリーにアクセスし、要素の取得、内容の変更、ノードの追加・削除などを行います。
+
+つまり DOM は、静的な文書としての HTML と、動的に振る舞う Web アプリケーションの間にある橋渡しの仕組みです。
+
+## 参考
+
+- https://dom.spec.whatwg.org/
+- https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model
+- https://www.w3.org/TR/DOM-Level-3-Core/core.html
+- https://www.freecodecamp.org/news/what-is-the-dom-explained-in-plain-english/
+- https://www.w3schools.com/js/js_HTMLdom.asp
+- https://brendaneich.com/tag/history/
+- https://youtu.be/krB0enBeSiE
+- https://youtu.be/J-02VNxE7lE
