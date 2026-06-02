@@ -70,10 +70,10 @@ const traversals: Record<TraversalType, () => number[]> = {
 };
 
 const labels: Record<TraversalType, string> = {
-  bfs: "BFS (幅優先)",
-  "dfs-pre": "DFS 前順 (Pre-order)",
-  "dfs-in": "DFS 中順 (In-order)",
-  "dfs-post": "DFS 後順 (Post-order)",
+  bfs: "BFS (Breadth-First)",
+  "dfs-pre": "DFS Pre-order",
+  "dfs-in": "DFS In-order",
+  "dfs-post": "DFS Post-order",
 };
 
 export function TreeTraversalDemo() {
@@ -164,28 +164,28 @@ export function TreeTraversalDemo() {
             disabled={!canPrev}
             className="rounded px-4 py-1.5 text-sm border border-neutral-300 bg-white disabled:opacity-30 hover:enabled:bg-neutral-100 transition-colors"
           >
-            ← 戻る
+            ← Back
           </button>
           <button
             onClick={() => setStep((s) => Math.min(order.length - 1, s + 1))}
             disabled={!canNext}
             className="rounded px-4 py-1.5 text-sm border border-neutral-300 bg-white disabled:opacity-30 hover:enabled:bg-neutral-100 transition-colors"
           >
-            次へ →
+            Next →
           </button>
         </div>
         <div className="text-sm text-neutral-500">
           {step < 0
-            ? "「次へ」で開始"
+            ? "Press Next to start"
             : step === order.length - 1
-              ? "完了"
-              : `ステップ ${step + 1} / ${order.length}`}
+              ? "Done"
+              : `Step ${step + 1} / ${order.length}`}
         </div>
       </div>
 
       {step >= 0 && (
         <div className="mt-3 text-sm text-neutral-600">
-          訪問順:{" "}
+          Visit order:{" "}
           <span className="font-mono">
             {order
               .slice(0, step + 1)

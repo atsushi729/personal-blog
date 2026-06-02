@@ -1,0 +1,124 @@
+<svg width="100%" viewBox="0 0 680 900" role="img" font-family="'Times New Roman', Times, serif" style="" xmlns="http://www.w3.org/2000/svg">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Times New Roman&quot;, Times, serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">BFS - Graph Visualization + Pseudocode</title>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  <mask id="imagine-text-gaps-nolr6q" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="680" height="900" fill="white"/><rect x="298.7890625" y="39.5" width="82.421875" height="17.08984375" fill="black" rx="2"/><rect x="285.28125" y="169.5" width="109.4375" height="17.08984375" fill="black" rx="2"/><rect x="285.28125" y="299.5" width="109.4375" height="17.08984375" fill="black" rx="2"/><rect x="331.55078125" y="79" width="16.8984375" height="22" fill="black" rx="2"/><rect x="326.52734375" y="99.75" width="26.95458984375" height="16.5" fill="black" rx="2"/><rect x="190.58203125" y="209.75" width="18.8359375" height="20.5" fill="black" rx="2"/><rect x="183.63671875" y="226.5" width="32.7265625" height="15" fill="black" rx="2"/><rect x="330.99609375" y="209.75" width="18.0078125" height="20.5" fill="black" rx="2"/><rect x="323.63671875" y="226.5" width="32.7265625" height="15" fill="black" rx="2"/><rect x="470.58203125" y="209.75" width="18.8359375" height="20.5" fill="black" rx="2"/><rect x="463.63671875" y="226.5" width="32.7265625" height="15" fill="black" rx="2"/><rect x="110.94140625" y="344.25" width="18.1171875" height="19.5" fill="black" rx="2"/><rect x="103.63671875" y="359.5" width="32.7265625" height="15" fill="black" rx="2"/><rect x="231.328125" y="344.25" width="17.34375" height="19.5" fill="black" rx="2"/><rect x="223.63671875" y="359.5" width="32.7265625" height="15" fill="black" rx="2"/><rect x="331.72265625" y="344.25" width="16.5546875" height="19.5" fill="black" rx="2"/><rect x="323.63671875" y="359.5" width="32.7265625" height="15" fill="black" rx="2"/><rect x="450.5546875" y="344.25" width="18.890625" height="19.5" fill="black" rx="2"/><rect x="443.63671875" y="359.5" width="32.7265625" height="15" fill="black" rx="2"/><rect x="570.5546875" y="344.25" width="18.890625" height="19.5" fill="black" rx="2"/><rect x="563.63671875" y="359.5" width="32.7265625" height="15" fill="black" rx="2"/><rect x="62" y="437.5" width="165.65625" height="17" fill="black" rx="2"/><rect x="84.734375" y="465" width="42.53125" height="16.5" fill="black" rx="2"/><rect x="145" y="462.5" width="22" height="19.5" fill="black" rx="2"/><rect x="185.62890625" y="465" width="80.7421875" height="16.5" fill="black" rx="2"/><rect x="285" y="462.5" width="22" height="19.5" fill="black" rx="2"/><rect x="332.91015625" y="465" width="94.1796875" height="16.5" fill="black" rx="2"/><rect x="453" y="462.5" width="22" height="19.5" fill="black" rx="2"/><rect x="501.51953125" y="465" width="92.9609375" height="16.5" fill="black" rx="2"/><rect x="232.4609375" y="502" width="215.14697265625" height="16.5" fill="black" rx="2"/><rect x="64" y="578.5" width="155.703125" height="18.5" fill="black" rx="2"/><rect x="84" y="603" width="120.8125" height="17.69775390625" fill="black" rx="2"/><rect x="84" y="623" width="108.35400390625" height="17.69775390625" fill="black" rx="2"/><rect x="84" y="646" width="239.78857421875" height="17.67333984375" fill="black" rx="2"/><rect x="84" y="671" width="149.296875" height="17.69775390625" fill="black" rx="2"/><rect x="104" y="694" width="144.9921875" height="17.67333984375" fill="black" rx="2"/><rect x="104" y="720" width="76.2890625" height="17.67333984375" fill="black" rx="2"/><rect x="104" y="745" width="162.1171875" height="17.69775390625" fill="black" rx="2"/><rect x="124" y="768" width="266.54638671875" height="17.67333984375" fill="black" rx="2"/><rect x="104" y="793" width="43.82763671875" height="17.5" fill="black" rx="2"/><rect x="84" y="815" width="56.9453125" height="17.5" fill="black" rx="2"/><rect x="64" y="837" width="70.8359375" height="17.5" fill="black" rx="2"/></mask></defs>
+
+  <!-- Layer 0 band -->
+  <rect x="280" y="60" width="120" height="90" rx="12" fill="#EAF3DE" opacity="0.5"/>
+  <text x="340" y="52" text-anchor="middle" fill="#3B6D11" font-size="12" font-weight="600">Layer 0 (start)</text>
+
+  <!-- Layer 1 band -->
+  <rect x="110" y="190" width="460" height="90" rx="12" fill="#E6F1FB" opacity="0.5"/>
+  <text x="340" y="182" text-anchor="middle" fill="#185FA5" font-size="12" font-weight="600">Layer 1 (distance 1)</text>
+
+  <!-- Layer 2 band -->
+  <rect x="40" y="320" width="600" height="90" rx="12" fill="#EEEDFE" opacity="0.45"/>
+  <text x="340" y="312" text-anchor="middle" fill="#534AB7" font-size="12" font-weight="600">Layer 2 (distance 2)</text>
+
+  <!-- Edges L0 to L1 -->
+  <line x1="340" y1="118" x2="200" y2="192" stroke="#378ADD" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="340" y1="118" x2="340" y2="192" stroke="#378ADD" stroke-width="1.2" marker-end="url(#arrow)" mask="url(#imagine-text-gaps-nolr6q)"/>
+  <line x1="340" y1="118" x2="480" y2="192" stroke="#378ADD" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- Edges L1 to L2 -->
+  <line x1="200" y1="248" x2="120" y2="322" stroke="#7F77DD" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="200" y1="248" x2="240" y2="322" stroke="#7F77DD" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="340" y1="248" x2="340" y2="322" stroke="#7F77DD" stroke-width="1.2" marker-end="url(#arrow)" mask="url(#imagine-text-gaps-nolr6q)"/>
+  <line x1="480" y1="248" x2="460" y2="322" stroke="#7F77DD" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="480" y1="248" x2="580" y2="322" stroke="#7F77DD" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- Node S -->
+  <circle cx="340" cy="95" r="30" fill="#EAF3DE" stroke="#639922" stroke-width="1.5"/>
+  <text x="340" y="90" text-anchor="middle" dominant-baseline="central" font-size="16" font-weight="700" fill="#27500A">S</text>
+  <text x="340" y="108" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#27500A">start</text>
+
+  <!-- Nodes L1 -->
+  <circle cx="200" cy="225" r="26" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="200" y="220" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="700" fill="#185FA5">A</text>
+  <text x="200" y="234" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">visit 2</text>
+
+  <circle cx="340" cy="225" r="26" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="340" y="220" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="700" fill="#185FA5">B</text>
+  <text x="340" y="234" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">visit 3</text>
+
+  <circle cx="480" cy="225" r="26" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+  <text x="480" y="220" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="700" fill="#185FA5">C</text>
+  <text x="480" y="234" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#185FA5">visit 4</text>
+
+  <!-- Nodes L2 -->
+  <circle cx="120" cy="358" r="24" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text x="120" y="354" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#534AB7">D</text>
+  <text x="120" y="367" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#534AB7">visit 5</text>
+
+  <circle cx="240" cy="358" r="24" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text x="240" y="354" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#534AB7">E</text>
+  <text x="240" y="367" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#534AB7">visit 6</text>
+
+  <circle cx="340" cy="358" r="24" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text x="340" y="354" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#534AB7">F</text>
+  <text x="340" y="367" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#534AB7">visit 7</text>
+
+  <circle cx="460" cy="358" r="24" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text x="460" y="354" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#534AB7">G</text>
+  <text x="460" y="367" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#534AB7">visit 8</text>
+
+  <circle cx="580" cy="358" r="24" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+  <text x="580" y="354" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#534AB7">H</text>
+  <text x="580" y="367" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#534AB7">visit 9</text>
+
+  <!-- Queue box -->
+  <rect x="50" y="430" width="580" height="96" rx="10" fill="none" stroke="#CCCCCC" stroke-width="1"/>
+  <text x="66" y="450" fill="#666666" font-size="12" font-weight="600">Queue (FIFO) state transitions</text>
+
+  <rect x="66" y="460" width="80" height="26" rx="5" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <text x="106" y="477" text-anchor="middle" font-size="11" fill="#27500A">Init: [S]</text>
+  <text x="156" y="477" text-anchor="middle" fill="#888888" font-size="14">&#x2192;</text>
+
+  <rect x="166" y="460" width="120" height="26" rx="5" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="226" y="477" text-anchor="middle" font-size="11" fill="#0C447C">Pop S: [A, B, C]</text>
+  <text x="296" y="477" text-anchor="middle" fill="#888888" font-size="14">&#x2192;</text>
+
+  <rect x="306" y="460" width="148" height="26" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="380" y="477" text-anchor="middle" font-size="11" fill="#3C3489">Pop A: [B, C, D, E]</text>
+  <text x="464" y="477" text-anchor="middle" fill="#888888" font-size="14">&#x2192;</text>
+
+  <rect x="474" y="460" width="148" height="26" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="548" y="477" text-anchor="middle" font-size="11" fill="#3C3489">Pop B: [C, D, E, F]</text>
+
+  <text x="340" y="514" text-anchor="middle" font-size="11" fill="#888888">Finish the entire layer before advancing deeper</text>
+
+  <!-- Divider -->
+  <line x1="40" y1="546" x2="640" y2="546" stroke="#DDDDDD" stroke-width="1" stroke-dasharray="6 4"/>
+
+  <!-- Pseudocode card -->
+  <rect x="40" y="560" width="600" height="320" rx="16" fill="#F7F8FA" stroke="#DDDDDD" stroke-width="1"/>
+
+  <text x="68" y="592" font-size="13" font-weight="700" fill="#333333">function BFS(graph, start)</text>
+
+  <text x="88" y="616" font-size="12.5" fill="#444444">queue   &#x2190; empty queue</text>
+  <text x="88" y="636" font-size="12.5" fill="#444444">visited &#x2190; empty set</text>
+
+  <rect x="80" y="644" width="520" height="22" rx="5" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+  <text x="88" y="659" font-size="12.5" fill="#27500A"><tspan fill="#888" font-size="11">&#x2460; </tspan>  enqueue(queue, start) ; mark start as visited</text>
+
+  <text x="88" y="684" font-size="12.5" fill="#444444">while queue is not empty do</text>
+
+  <rect x="80" y="692" width="520" height="22" rx="5" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text x="108" y="707" font-size="12.5" fill="#0C447C"><tspan fill="#888" font-size="11">&#x2461;</tspan>  node &#x2190; dequeue(queue)</text>
+
+  <rect x="80" y="718" width="520" height="22" rx="5" fill="#FFF4E0" stroke="#EF9F27" stroke-width="0.5"/>
+  <text x="108" y="733" font-size="12.5" fill="#633806"><tspan fill="#888" font-size="11">&#x2462;</tspan>  visit(node)</text>
+
+  <text x="108" y="758" font-size="12.5" fill="#444444">for each neighbor n of node do</text>
+
+  <rect x="80" y="766" width="520" height="22" rx="5" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="128" y="781" font-size="12.5" fill="#3C3489"><tspan fill="#888" font-size="11">&#x2463;</tspan>  if n &#x2209; visited: enqueue(queue, n) ; mark n visited</text>
+
+  <text x="108" y="806" font-size="12.5" fill="#888888">end for</text>
+  <text x="88" y="828" font-size="12.5" fill="#888888">end while</text>
+  <text x="68" y="850" font-size="12.5" fill="#888888">end function</text>
+</svg>
