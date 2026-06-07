@@ -1,0 +1,122 @@
+<svg width="100%" viewBox="0 0 682 300" role="img" style="" xmlns="http://www.w3.org/2000/svg">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">doc-autofill pipeline architecture</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">PDF ingestion pipeline: Azure Document Intelligence splits a PDF into images and transcribed text. Images are described by Azure OpenAI #1. Both streams merge and are synthesized by Azure OpenAI #2 into a merged output stored in a session, keyed by session_id fed back from the user.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  <mask id="imagine-text-gaps-bzg55l" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="682" height="300" fill="white"/><rect x="14" y="7" width="70.296875" height="16.5" fill="black" rx="2"/><rect x="14" y="152" width="62.2109375" height="16.5" fill="black" rx="2"/><rect x="13.78125" y="65" width="32.4375" height="18" fill="black" rx="2"/><rect x="18.6171875" y="78.75" width="22.765625" height="26.5" fill="black" rx="2"/><rect x="69.28125" y="65" width="29.4375" height="18" fill="black" rx="2"/><rect x="72" y="80.5" width="24.5" height="23" fill="black" rx="2"/><rect x="133.5703125" y="59" width="52.859375" height="18" fill="black" rx="2"/><rect x="119.45703125" y="75.75" width="81.0859375" height="16.5" fill="black" rx="2"/><rect x="122.4140625" y="91.75" width="75.171875" height="16.5" fill="black" rx="2"/><rect x="223.40234375" y="65" width="45.1953125" height="18" fill="black" rx="2"/><rect x="219.08984375" y="81.75" width="53.8203125" height="16.5" fill="black" rx="2"/><rect x="287.109375" y="63" width="81.78125" height="18" fill="black" rx="2"/><rect x="300.97265625" y="79.75" width="54.0546875" height="16.5" fill="black" rx="2"/><rect x="394.2578125" y="63" width="39.484375" height="18" fill="black" rx="2"/><rect x="380.59765625" y="79.75" width="66.8046875" height="16.5" fill="black" rx="2"/><rect x="459.109375" y="57" width="81.78125" height="18" fill="black" rx="2"/><rect x="463.671875" y="73.75" width="72.65625" height="16.5" fill="black" rx="2"/><rect x="462.58984375" y="89.75" width="74.8203125" height="16.5" fill="black" rx="2"/><rect x="561.671875" y="57" width="48.65625" height="18" fill="black" rx="2"/><rect x="568.15625" y="73.75" width="35.6875" height="16.5" fill="black" rx="2"/><rect x="559.96875" y="87.75" width="52.0625" height="16.5" fill="black" rx="2"/><rect x="637.68359375" y="63.75" width="28.6328125" height="16.5" fill="black" rx="2"/><rect x="638.15234375" y="77.75" width="27.6953125" height="16.5" fill="black" rx="2"/><rect x="223.0234375" y="186" width="69.953125" height="18" fill="black" rx="2"/><rect x="244.4140625" y="202.75" width="27.171875" height="16.5" fill="black" rx="2"/><rect x="311.3828125" y="246.75" width="57.234375" height="16.5" fill="black" rx="2"/></mask></defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="682" height="300" fill="rgb(245, 245, 243)" rx="8"/>
+
+  <!-- LANE BACKGROUNDS -->
+  <rect x="8" y="8" width="664" height="14" rx="3" fill="none"/>
+  <text x="18" y="19" style="font-size:10px;opacity:0.4;fill:rgb(194, 192, 182);">main pipeline</text>
+  <line x1="8" y1="150" x2="672" y2="150" stroke="rgba(222,220,209,0.3)" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.3"/>
+  <text x="18" y="164" style="font-size:10px;opacity:0.4;fill:rgb(194, 192, 182);">text branch</text>
+
+  <!-- User -->
+  <g>
+    <rect x="8" y="56" width="44" height="48" rx="6" stroke-width="0.5" style="fill:rgb(68, 68, 65);stroke:rgb(180, 178, 169);"/>
+    <text x="30" y="74" text-anchor="middle" dominant-baseline="central" style="font-size:11px;fill:rgb(180, 178, 169);">User</text>
+    <text x="30" y="92" text-anchor="middle" dominant-baseline="central" style="font-size:18px;fill:rgb(180, 178, 169);">👤</text>
+  </g>
+
+  <!-- PDF -->
+  <g>
+    <rect x="62" y="56" width="44" height="48" rx="6" stroke-width="0.5" style="fill:rgb(68, 68, 65);stroke:rgb(180, 178, 169);"/>
+    <text x="84" y="74" text-anchor="middle" dominant-baseline="central" style="font-size:11px;fill:rgb(180, 178, 169);">PDF</text>
+    <text x="84" y="92" text-anchor="middle" dominant-baseline="central" style="font-size:15px;fill:rgb(180, 178, 169);">📄</text>
+  </g>
+
+  <!-- Azure DI -->
+  <g>
+    <rect x="116" y="48" width="88" height="64" rx="6" stroke-width="0.5" style="fill:rgb(12, 68, 124);stroke:rgb(133, 183, 235);"/>
+    <text x="160" y="68" text-anchor="middle" dominant-baseline="central" style="font-size:11px;font-weight:500;fill:rgb(133, 183, 235);">Azure DI</text>
+    <text x="160" y="84" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(133, 183, 235);">Prebuilt-Layout</text>
+    <text x="160" y="100" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(133, 183, 235);">OCR + extract</text>
+  </g>
+
+  <!-- Images -->
+  <g>
+    <rect x="214" y="56" width="64" height="48" rx="6" stroke-width="0.5" style="fill:rgb(8, 80, 65);stroke:rgb(93, 202, 165);"/>
+    <text x="246" y="74" text-anchor="middle" dominant-baseline="central" style="font-size:11px;font-weight:500;fill:rgb(93, 202, 165);">Images</text>
+    <text x="246" y="90" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(93, 202, 165);">extracted</text>
+  </g>
+
+  <!-- Azure OpenAI #1 -->
+  <g>
+    <rect x="288" y="56" width="80" height="48" rx="6" stroke-width="0.5" style="fill:rgb(60, 52, 137);stroke:rgb(175, 169, 236);"/>
+    <text x="328" y="72" text-anchor="middle" dominant-baseline="central" style="font-size:11px;font-weight:500;fill:rgb(175, 169, 236);">Azure OpenAI</text>
+    <text x="328" y="88" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(175, 169, 236);">Vision · #1</text>
+  </g>
+
+  <!-- Image descriptions -->
+  <g>
+    <rect x="378" y="56" width="72" height="48" rx="6" stroke-width="0.5" style="fill:rgb(8, 80, 65);stroke:rgb(93, 202, 165);"/>
+    <text x="414" y="72" text-anchor="middle" dominant-baseline="central" style="font-size:11px;font-weight:500;fill:rgb(93, 202, 165);">Image</text>
+    <text x="414" y="88" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(93, 202, 165);">descriptions</text>
+  </g>
+
+  <!-- Azure OpenAI #2 -->
+  <g>
+    <rect x="460" y="48" width="80" height="64" rx="6" stroke-width="0.5" style="fill:rgb(60, 52, 137);stroke:rgb(175, 169, 236);"/>
+    <text x="500" y="66" text-anchor="middle" dominant-baseline="central" style="font-size:11px;font-weight:500;fill:rgb(175, 169, 236);">Azure OpenAI</text>
+    <text x="500" y="82" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(175, 169, 236);">Synthesis · #2</text>
+    <text x="500" y="98" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(175, 169, 236);">merges inputs</text>
+  </g>
+
+  <!-- Merged output -->
+  <g>
+    <rect x="550" y="48" width="72" height="64" rx="6" stroke-width="0.5" style="fill:rgb(113, 43, 19);stroke:rgb(240, 153, 123);"/>
+    <text x="586" y="66" text-anchor="middle" dominant-baseline="central" style="font-size:11px;font-weight:500;fill:rgb(240, 153, 123);">Merged</text>
+    <text x="586" y="82" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(240, 153, 123);">text +</text>
+    <text x="586" y="96" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(240, 153, 123);">img desc.</text>
+  </g>
+
+  <!-- Session -->
+  <g>
+    <rect x="632" y="56" width="40" height="48" rx="6" stroke-width="0.5" style="fill:rgb(39, 80, 10);stroke:rgb(151, 196, 89);"/>
+    <text x="652" y="72" text-anchor="middle" dominant-baseline="central" style="font-size:10px;font-weight:500;fill:rgb(151, 196, 89);">Ses-</text>
+    <text x="652" y="86" text-anchor="middle" dominant-baseline="central" style="font-size:10px;font-weight:500;fill:rgb(151, 196, 89);">sion</text>
+  </g>
+
+  <!-- Transcribed text (bottom lane) -->
+  <g>
+    <rect x="214" y="178" width="88" height="44" rx="6" stroke-width="0.5" style="fill:rgb(99, 56, 6);stroke:rgb(239, 159, 39);"/>
+    <text x="258" y="195" text-anchor="middle" dominant-baseline="central" style="font-size:11px;font-weight:500;fill:rgb(239, 159, 39);">Transcribed</text>
+    <text x="258" y="211" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(239, 159, 39);">text</text>
+  </g>
+
+  <!-- MAIN FLOW ARROWS -->
+  <!-- User → PDF -->
+  <line x1="52" y1="80" x2="60" y2="80" stroke="#888780" stroke-width="1" marker-end="url(#arrow)" fill="none"/>
+  <!-- PDF → Azure DI -->
+  <line x1="106" y1="80" x2="114" y2="80" stroke="#888780" stroke-width="1" marker-end="url(#arrow)" fill="none"/>
+  <!-- Azure DI → Images -->
+  <line x1="204" y1="70" x2="212" y2="70" stroke="#378ADD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <!-- Azure DI → Transcribed text -->
+  <path d="M204 90 L209 90 L209 200 L212 200" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <!-- Images → OpenAI #1 -->
+  <line x1="278" y1="80" x2="286" y2="80" stroke="#378ADD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <!-- OpenAI #1 → Image desc -->
+  <line x1="368" y1="80" x2="376" y2="80" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <!-- Image desc → OpenAI #2 -->
+  <line x1="450" y1="80" x2="458" y2="80" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <!-- Transcribed text → OpenAI #2 -->
+  <path d="M302 200 L500 200 L500 114" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <!-- OpenAI #2 → Merged -->
+  <line x1="540" y1="80" x2="548" y2="80" stroke="#D85A30" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <!-- Merged → Session -->
+  <line x1="622" y1="80" x2="630" y2="80" stroke="#D85A30" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- SESSION_ID FEEDBACK (green, bottom arc) -->
+  <path d="M30 104 L30 252 L648 252 L648 106" stroke="#1D9E75" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#arrow-green)" fill="none" mask="url(#imagine-text-gaps-bzg55l)"/>
+  <rect x="296" y="243" width="88" height="16" rx="3" fill="rgb(38, 38, 36)" opacity="0.9"/>
+  <text x="340" y="255" text-anchor="middle" dominant-baseline="central" style="font-size:10px;fill:rgb(15, 110, 86);">session_id</text>
+
+</svg>
