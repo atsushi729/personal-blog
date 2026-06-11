@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 620" font-family="'Helvetica Neue', Arial, sans-serif">
+  <rect width="860" height="620" fill="#ffffff"/>
+
+  <!-- Roads (top-down view) -->
+  <rect x="350" y="0" width="180" height="620" fill="#ececec"/>
+  <rect x="0" y="230" width="860" height="180" fill="#ececec"/>
+  <!-- Road edges -->
+  <line x1="350" y1="0" x2="350" y2="230" stroke="#999" stroke-width="3"/>
+  <line x1="350" y1="410" x2="350" y2="620" stroke="#999" stroke-width="3"/>
+  <line x1="530" y1="0" x2="530" y2="230" stroke="#999" stroke-width="3"/>
+  <line x1="530" y1="410" x2="530" y2="620" stroke="#999" stroke-width="3"/>
+  <line x1="0" y1="230" x2="350" y2="230" stroke="#999" stroke-width="3"/>
+  <line x1="530" y1="230" x2="860" y2="230" stroke="#999" stroke-width="3"/>
+  <line x1="0" y1="410" x2="350" y2="410" stroke="#999" stroke-width="3"/>
+  <line x1="530" y1="410" x2="860" y2="410" stroke="#999" stroke-width="3"/>
+  <!-- Center lines -->
+  <line x1="440" y1="0" x2="440" y2="220" stroke="#ffffff" stroke-width="5" stroke-dasharray="22 16"/>
+  <line x1="440" y1="420" x2="440" y2="620" stroke="#ffffff" stroke-width="5" stroke-dasharray="22 16"/>
+  <line x1="0" y1="320" x2="340" y2="320" stroke="#ffffff" stroke-width="5" stroke-dasharray="22 16"/>
+  <line x1="540" y1="320" x2="860" y2="320" stroke="#ffffff" stroke-width="5" stroke-dasharray="22 16"/>
+
+  <!-- Crosswalk on east road -->
+  <g fill="#ffffff" stroke="#cccccc" stroke-width="1">
+    <rect x="560" y="238" width="60" height="18"/>
+    <rect x="560" y="266" width="60" height="18"/>
+    <rect x="560" y="294" width="60" height="18"/>
+    <rect x="560" y="322" width="60" height="18"/>
+    <rect x="560" y="350" width="60" height="18"/>
+    <rect x="560" y="378" width="60" height="18"/>
+  </g>
+
+  <!-- Pedestrian -->
+  <g fill="#d6453c">
+    <circle cx="590" cy="330" r="9"/>
+    <path d="M590 339 l-8 26 6 2 4 -14 4 14 6 -2 z"/>
+    <rect x="583" y="339" width="14" height="14" rx="4"/>
+  </g>
+  <text x="630" y="335" fill="#d6453c" font-size="19" font-weight="bold">Pedestrians have</text>
+  <text x="630" y="358" fill="#d6453c" font-size="19" font-weight="bold">right of way.</text>
+
+  <!-- Traffic light (Japanese: blue / yellow / red) -->
+  <g>
+    <rect x="40" y="40" width="150" height="58" rx="12" fill="#444"/>
+    <circle cx="70" cy="69" r="18" fill="#2bb3a3"/>
+    <circle cx="115" cy="69" r="18" fill="#f5e27a"/>
+    <circle cx="160" cy="69" r="18" fill="#f0a8a8"/>
+    <line x1="58" y1="38" x2="50" y2="26" stroke="#2bb3a3" stroke-width="3"/>
+    <line x1="70" y1="36" x2="70" y2="22" stroke="#2bb3a3" stroke-width="3"/>
+    <line x1="82" y1="38" x2="90" y2="26" stroke="#2bb3a3" stroke-width="3"/>
+  </g>
+
+  <!-- Oncoming car going straight (southbound, has priority) -->
+  <g>
+    <rect x="378" y="120" width="48" height="86" rx="12" fill="#ffffff" stroke="#555" stroke-width="3"/>
+    <rect x="386" y="138" width="32" height="16" rx="4" fill="#cfe3ee"/>
+    <rect x="386" y="176" width="32" height="14" rx="4" fill="#cfe3ee"/>
+  </g>
+  <path d="M402 215 L402 470" stroke="#d6453c" stroke-width="5" stroke-dasharray="2 12" stroke-linecap="round" fill="none"/>
+  <path d="M402 488 l-11 -20 22 0 z" fill="#d6453c"/>
+
+  <!-- Right-turning car (northbound, waiting) -->
+  <g>
+    <rect x="458" y="430" width="48" height="86" rx="12" fill="#bfe0c8" stroke="#555" stroke-width="3"/>
+    <rect x="466" y="448" width="32" height="14" rx="4" fill="#cfe3ee"/>
+    <rect x="466" y="484" width="32" height="16" rx="4" fill="#cfe3ee"/>
+    <!-- turn signal -->
+    <circle cx="504" cy="438" r="6" fill="#f0b429"/>
+    <line x1="512" y1="430" x2="522" y2="420" stroke="#f0b429" stroke-width="3"/>
+    <line x1="514" y1="438" x2="528" y2="436" stroke="#f0b429" stroke-width="3"/>
+  </g>
+  <!-- Intended right-turn path -->
+  <path d="M482 425 Q486 330 600 322" stroke="#d6453c" stroke-width="5" stroke-dasharray="2 12" stroke-linecap="round" fill="none"/>
+
+  <!-- STOP! label -->
+  <g>
+    <rect x="320" y="520" width="130" height="48" rx="6" fill="#ffffff" stroke="#2b5fad" stroke-width="4"/>
+    <text x="385" y="554" text-anchor="middle" fill="#2b5fad" font-size="28" font-weight="bold">STOP!</text>
+  </g>
+
+  <!-- Callout -->
+  <g>
+    <rect x="320" y="28" width="510" height="84" rx="8" fill="#d6453c"/>
+    <path d="M470 112 L500 150 L520 112 z" fill="#d6453c"/>
+    <text x="345" y="63" fill="#ffffff" font-size="25" font-weight="bold">The vehicle turning right must use the</text>
+    <text x="345" y="97" fill="#ffffff" font-size="25" font-weight="bold">turn signal and wait for oncoming traffic.</text>
+  </g>
+</svg>

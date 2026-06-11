@@ -1,0 +1,100 @@
+---
+title: "Deterministic vs Probabilistic"
+date: "2026-06-11"
+locale: en
+translationKey: deterministic_vs_probabilistic
+category: ai
+excerpt: "Managing an AI agent's authority and output quality is hard. Clearly separating deterministic, rule-based control from probabilistic, LLM-driven generation is the key to using agents well."
+---
+
+## TL;DR
+
+When building agent systems, two things are notoriously hard to manage: the scope of the agent's authority and the quality of its output. I believe the key to both is deliberately mixing two approaches: deterministic processing for what must be controlled, and probabilistic processing for what should be generated freely.
+
+## Overview
+
+AI works 24/7, doesn't complain, and is often more accurate than humans at repetitive tasks. Naturally, companies have started integrating AI into their workflows and backend systems to cut costs like salaries and communication overhead.
+
+The next step beyond "ask, then fix" is AI that finds and solves problems autonomously, without explicit direction. This is what we call Agentic AI, and it requires giving the AI more power and permissions than ever before. The results can be remarkable: humans tend to forget rare or seemingly unnecessary information, while an AI agent actively searches, greps, and generates the right content to finish an entire task end to end.
+
+But here lies the dilemma. Granting more permissions expands what the agent can do, but at the same time it expands the risk of unexpected, harmful events such as data leaks or accidental deletion.
+
+My answer to this dilemma is to draw a clear line between deterministic work (rule-based processing like conditional branching) and probabilistic work (LLM-driven, inherently stochastic processing). Doing so lets us use AI agents far more safely and effectively.
+
+## Why Pure Rules Don't Scale: Self-Driving Cars
+
+Consider autonomous driving (traffic rules vary by country, so let's use Japan as the example).
+
+- If the light is green, you may proceed. Going straight? Just go.
+- Turning right? If oncoming traffic is coming through, wait until it clears.
+- While turning right, if a pedestrian is in the crosswalk, stop and don't turn.
+- While stopped, if the light changes, stay stopped.
+
+![Right-turn traffic rules](/images/right_turn_rule_en.svg)
+
+In pseudocode, it looks like this:
+
+```python
+if light == GREEN:
+    if direction == STRAIGHT:
+        go()
+    elif direction == TURN_RIGHT:
+        if oncoming_traffic_exists():
+            wait()
+        else:
+            if pedestrian_in_crosswalk():
+                stop()
+            else:
+                if light_changed_while_waiting():
+                    stay_stopped()
+                else:
+                    turn_right()
+elif light == YELLOW:
+    if can_stop_safely():
+        stop()
+    else:
+        # proceed? how do we define "safely"?
+        ...
+elif light == RED:
+    stay_stopped()
+
+# What about an emergency vehicle approaching?
+# An officer directing traffic against the signal?
+# A ball rolling into the street?
+# The cases never end...
+```
+
+Try writing all of this as nested if-statements and you quickly descend into nesting hell. Managing the entire behavior with rules alone becomes impossible because the real world has too many cases. This is exactly where probabilistic judgment earns its place.
+
+## Where Rules Are Non-Negotiable: A File-Operation Agent
+
+Now flip the perspective and consider an AI agent that manipulates files.
+
+Here you need explicit, hard rules: which directories the agent may freely operate in, which it must never see, and which are read-only. Which operations are allowed on which folders should be decided deterministically, never left to the model's judgment.
+
+On the other hand, the actions the agent derives from the documents it reads, such as what to generate and how to process it, can safely remain probabilistic.
+
+The boundary is the permission; the creativity lives inside it.
+
+## Practical Applications
+
+This principle applies to virtually any system built on AI agents.
+
+"Harness engineering" has become a popular term recently. The idea fits here perfectly: when the user wants a specific task to be executed, that execution should be deterministic. For example, suppose the team convention is to always write tests after implementing a feature. Instead of hoping the agent remembers, encode it in the harness itself, like a shell script:
+
+```bash
+# Before task
+{Agent task}
+# After task: always runs
+write tests
+```
+
+Now the test step executes 100% of the time, regardless of what the agent decides. The same pattern works for linting, formatting, security checks, and anything else that must happen.
+
+Document generation benefits from the same split. Register specific keywords ahead of time so that certain parts of the output are always identical, and let the model write freely everywhere else. Combining fixed sections with free-form sections brings the output much closer to what you actually expect.
+
+## Summary
+
+Knowing when to be deterministic and when to be probabilistic is essential to maximizing the power of AI agents.
+
+Be deterministic where you absolutely need control. Be probabilistic where you want free generation and flexible handling.
