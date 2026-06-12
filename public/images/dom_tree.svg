@@ -1,0 +1,75 @@
+<svg width="100%" viewBox="0 0 682 392" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>DOM tree of the example HTML document</title>
+  <desc>A tree rooted at document. document has one child, html, which carries a lang="en" attribute. html has two children, head and body. head contains title, whose child is the text node "My Document". body contains h1 with the text node "Header" and p with the text node "Paragraph".</desc>
+
+  <style>
+    .label { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+    .legend { font-family: -apple-system, "system-ui", "Segoe UI", sans-serif; font-size: 10px; fill: rgb(120, 118, 110); }
+    .doc  { fill: rgb(60, 52, 137); stroke: rgb(175, 169, 236); stroke-width: 0.5; }
+    .elem { fill: rgb(12, 68, 124); stroke: rgb(133, 183, 235); stroke-width: 0.5; }
+    .txt  { fill: rgb(8, 80, 65);   stroke: rgb(93, 202, 165);  stroke-width: 0.5; }
+    .attr { fill: rgb(68, 68, 65);  stroke: rgb(180, 178, 169); stroke-width: 0.5; }
+    .edge { fill: none; stroke: rgb(178, 176, 168); stroke-width: 1.2; }
+  </style>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="682" height="392" fill="rgb(245, 245, 243)" rx="8"/>
+
+  <!-- Edges -->
+  <line class="edge" x1="341" y1="62" x2="341" y2="96"/>
+  <path class="edge" d="M341 132 V152 H190 V172"/>
+  <path class="edge" d="M341 132 V152 H480 V172"/>
+  <line class="edge" x1="190" y1="208" x2="190" y2="242"/>
+  <path class="edge" d="M480 208 V225 H400 V242"/>
+  <path class="edge" d="M480 208 V225 H560 V242"/>
+  <line class="edge" x1="190" y1="278" x2="190" y2="312"/>
+  <line class="edge" x1="400" y1="278" x2="400" y2="312"/>
+  <line class="edge" x1="560" y1="278" x2="560" y2="312"/>
+  <line class="edge" x1="393" y1="114" x2="417" y2="114" stroke-dasharray="3 3"/>
+
+  <!-- document -->
+  <rect class="doc" x="281" y="26" width="120" height="36" rx="6"/>
+  <text class="label" x="341" y="44" text-anchor="middle" dominant-baseline="central" fill="rgb(175, 169, 236)">document</text>
+
+  <!-- html -->
+  <rect class="elem" x="289" y="96" width="104" height="36" rx="6"/>
+  <text class="label" x="341" y="114" text-anchor="middle" dominant-baseline="central" fill="rgb(133, 183, 235)">html</text>
+
+  <!-- lang attribute -->
+  <rect class="attr" x="417" y="99" width="104" height="30" rx="6" stroke-dasharray="3 3"/>
+  <text class="label" x="469" y="114" text-anchor="middle" dominant-baseline="central" font-size="12" fill="rgb(180, 178, 169)">lang="en"</text>
+
+  <!-- head / body -->
+  <rect class="elem" x="142" y="172" width="96" height="36" rx="6"/>
+  <text class="label" x="190" y="190" text-anchor="middle" dominant-baseline="central" fill="rgb(133, 183, 235)">head</text>
+  <rect class="elem" x="432" y="172" width="96" height="36" rx="6"/>
+  <text class="label" x="480" y="190" text-anchor="middle" dominant-baseline="central" fill="rgb(133, 183, 235)">body</text>
+
+  <!-- title / h1 / p -->
+  <rect class="elem" x="142" y="242" width="96" height="36" rx="6"/>
+  <text class="label" x="190" y="260" text-anchor="middle" dominant-baseline="central" fill="rgb(133, 183, 235)">title</text>
+  <rect class="elem" x="360" y="242" width="80" height="36" rx="6"/>
+  <text class="label" x="400" y="260" text-anchor="middle" dominant-baseline="central" fill="rgb(133, 183, 235)">h1</text>
+  <rect class="elem" x="520" y="242" width="80" height="36" rx="6"/>
+  <text class="label" x="560" y="260" text-anchor="middle" dominant-baseline="central" fill="rgb(133, 183, 235)">p</text>
+
+  <!-- Text nodes -->
+  <rect class="txt" x="120" y="312" width="140" height="34" rx="6"/>
+  <text class="label" x="190" y="329" text-anchor="middle" dominant-baseline="central" font-size="12" fill="rgb(93, 202, 165)">"My Document"</text>
+  <rect class="txt" x="348" y="312" width="104" height="34" rx="6"/>
+  <text class="label" x="400" y="329" text-anchor="middle" dominant-baseline="central" font-size="12" fill="rgb(93, 202, 165)">"Header"</text>
+  <rect class="txt" x="504" y="312" width="112" height="34" rx="6"/>
+  <text class="label" x="560" y="329" text-anchor="middle" dominant-baseline="central" font-size="12" fill="rgb(93, 202, 165)">"Paragraph"</text>
+
+  <!-- Legend -->
+  <g>
+    <rect class="doc" x="16" y="364" width="12" height="12" rx="3"/>
+    <text class="legend" x="34" y="373" dominant-baseline="central">Document</text>
+    <rect class="elem" x="98" y="364" width="12" height="12" rx="3"/>
+    <text class="legend" x="116" y="373" dominant-baseline="central">Element</text>
+    <rect class="txt" x="170" y="364" width="12" height="12" rx="3"/>
+    <text class="legend" x="188" y="373" dominant-baseline="central">Text</text>
+    <rect class="attr" x="222" y="364" width="12" height="12" rx="3" stroke-dasharray="3 3"/>
+    <text class="legend" x="240" y="373" dominant-baseline="central">Attribute</text>
+  </g>
+</svg>
