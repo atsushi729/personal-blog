@@ -2,6 +2,24 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 export const baseMdxComponents = {
+  a: ({
+    href,
+    children,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+    const isExternal = /^https?:\/\//.test(href ?? "");
+    return (
+      <a
+        href={href}
+        {...(isExternal
+          ? { target: "_blank", rel: "noopener noreferrer" }
+          : {})}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  },
   img: ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img src={src} alt={alt ?? ""} className="my-6 w-full" {...props} />
