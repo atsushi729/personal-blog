@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { ExternalLink } from "@/components/ui/ExternalLink";
 import type { Locale } from "@/i18n/config";
 import { contactContent } from "@/i18n/pages";
 
@@ -44,33 +45,21 @@ export default function ContactPage({ locale }: { locale: Locale }) {
           <span className="text-neutral-500 ml-2">— {content.general}</span>
         </li>
         <li>
-          <a
-            href="https://x.com/Hatakey2Atsushi"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <ExternalLink href="https://x.com/Hatakey2Atsushi">
             Twitter / X
-          </a>
+          </ExternalLink>
           <span className="text-neutral-500 ml-2">— {content.quick}</span>
         </li>
         <li>
-          <a
-            href="https://github.com/atsushi729"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <ExternalLink href="https://github.com/atsushi729">
             GitHub
-          </a>
+          </ExternalLink>
           <span className="text-neutral-500 ml-2">— {content.code}</span>
         </li>
         <li>
-          <a
-            href="https://www.linkedin.com/in/atsushi-hatakeyama/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <ExternalLink href="https://www.linkedin.com/in/atsushi-hatakeyama/">
             LinkedIn
-          </a>
+          </ExternalLink>
           <span className="text-neutral-500 ml-2">
             — {content.professional}
           </span>

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { ExternalLink } from "@/components/ui/ExternalLink";
 import type { Locale } from "@/i18n/config";
 import { projectsContent } from "@/i18n/pages";
 
@@ -92,24 +93,20 @@ export default function ProjectsPage({ locale }: { locale: Locale }) {
             </div>
             <div className="flex gap-4 mt-3">
               {project.link && (
-                <a
+                <ExternalLink
                   href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="link-underline text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors"
                 >
                   {content.viewProject} &rarr;
-                </a>
+                </ExternalLink>
               )}
               {project.github && (
-                <a
+                <ExternalLink
                   href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="link-underline text-sm font-sans text-neutral-500 hover:text-neutral-800 transition-colors"
                 >
                   GitHub &rarr;
-                </a>
+                </ExternalLink>
               )}
             </div>
           </article>

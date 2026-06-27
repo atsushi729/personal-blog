@@ -1,5 +1,6 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { ExternalLink } from "@/components/ui/ExternalLink";
 
 export const baseMdxComponents = {
   a: ({
@@ -8,14 +9,15 @@ export const baseMdxComponents = {
     ...props
   }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
     const isExternal = /^https?:\/\//.test(href ?? "");
+    if (isExternal) {
+      return (
+        <ExternalLink href={href} {...props}>
+          {children}
+        </ExternalLink>
+      );
+    }
     return (
-      <a
-        href={href}
-        {...(isExternal
-          ? { target: "_blank", rel: "noopener noreferrer" }
-          : {})}
-        {...props}
-      >
+      <a href={href} {...props}>
         {children}
       </a>
     );
