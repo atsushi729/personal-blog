@@ -13,6 +13,13 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Algo Notes",
+    description:
+      "A study platform for tracking algorithmic problem-solving progress, with difficulty levels, topic tags, and documented solution approaches.",
+    tech: ["Cloudflare Workers", "TypeScript"],
+    link: "https://algo-notes.atu729.workers.dev/",
+  },
+  {
     title: "c-daily",
     description:
       "A CLI tool to automatically record Claude Code activities for daily Markdown-based reviews.",
