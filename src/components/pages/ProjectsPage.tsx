@@ -13,6 +13,13 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Drafty",
+    description:
+      "An AI-powered document generation platform that produces high-quality drafts from source materials and templates using a Self-RAG quality loop.",
+    tech: ["Cloudflare Workers", "Vectorize", "Self-RAG"],
+    link: "https://drafty-lp.pages.dev/",
+  },
+  {
     title: "Algo Notes",
     description:
       "A study platform for tracking algorithmic problem-solving progress, with difficulty levels, topic tags, and documented solution approaches.",
