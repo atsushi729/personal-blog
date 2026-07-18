@@ -1,0 +1,72 @@
+---
+title: "Programming Paradigms"
+date: "2026-07-18"
+locale: en
+translationKey: programming_paradigms
+category: software
+excerpt: "Notes on programming paradigms, the higher-level concept behind approaches like pure functions and OOP, based on Peter Van Roy's classification."
+---
+
+## Overview
+
+While researching programming approaches such as pure functions and OOP (Object-Oriented Programming), I found a more core, more original concept: "Programming Paradigms." I read a few papers on the topic and found it interesting, so I decided to write some notes about it.
+
+## What Are Programming Paradigms?
+
+First, let's start by checking the definition of "paradigm."
+
+According to the dictionary, a paradigm is:
+
+> A philosophical and theoretical framework of a scientific school or discipline within which theories, laws, and generalizations and the experiments performed in support of them are formulated.
+
+In this post, I'll use "paradigm" to mean a way of seeing or thinking about things that is shared within a particular era or field.
+Now let's look at "programming paradigms." Peter Van Roy defines it as follows:
+
+> A programming paradigm is an approach to programming a computer based on a mathematical theory or a coherent set of principles.
+
+The mathematical theories referenced here include the λ-calculus and the π-calculus. Functional programming is based on the fundamental model of input → calculation → output, while the π-calculus provides a framework for programming that assumes multiple concurrent processes. These systematic approaches, which incorporate mathematical theories and principles into programming, are known as programming paradigms.
+
+Van Roy classifies programming paradigms into a hierarchy of 27 types, including functional programming, object-oriented programming, and others. Even paradigms that appear completely different at first glance, such as functional programming and object-oriented programming, are often separated by only a single conceptual difference.
+
+Two key properties distinguish each paradigm:
+
+1. The presence or absence of observable nondeterminism
+2. The degree to which state is supported
+
+To facilitate explanation, it is sometimes classified as follows.
+![Programming paradigms split into Imperative (Procedural, Object-oriented) and Declarative (Functional, Logic, Mathematical)](/images/programming_paradigms_tree.svg)
+
+## 27 Types of Programming Paradigms
+
+Van Roy classifies programming paradigms into 27 types. The following are among the primary ones:
+
+- Functional Programming
+- Object-Oriented Programming
+- Declarative Concurrency
+- Logic Programming
+
+![Van Roy's hierarchy of the 27 programming paradigms, organized by named/unnamed state and observable nondeterminism](/images/programming_paradigms_van_roy_hierarchy.svg)
+
+## Programming Concepts
+
+Programming paradigms are built up from programming concepts. The four most important ones are:
+
+1. Record
+2. Lexically scoped closure
+3. Independence (concurrency)
+4. Named state
+
+## Takeaways
+
+**The importance of understanding core concepts**
+
+Early in their careers, engineers often debate which programming language is best or how to learn programming fast. I cared about that too. But understanding a higher-level concept like "programming paradigms" is a more effective way to understand programming languages, because it reveals the core concepts and approaches languages share (or don't) for solving problems. If two languages share the same underlying concept, such as functional programming, it becomes much easier to understand or work in one after learning the other. It might look like a detour, but it pays off in the long term.
+
+## References
+
+- [Concepts, Techniques, and Models of Computer Programming](https://webperso.info.ucl.ac.be/~pvr/VanRoyHaridi2003-book.pdf)
+- [Programming Paradigms for Dummies: What Every Programmer Should Know](https://webperso.info.ucl.ac.be/~pvr/VanRoyChapter.pdf)
+- [An Introduction to Programming Paradigms](https://gcdi.commons.gc.cuny.edu/2018/03/12/an-introduction-to-programming-paradigms/#orgheadline15)
+- [The Lambda Calculus](https://plato.stanford.edu/entries/lambda-calculus/)
+- [A Tutorial Introduction to the Lambda Calculus](https://arxiv.org/pdf/1503.09060)
+- [Programming Paradigms](https://theailearner.com/2018/09/26/programming-paradigms/)
